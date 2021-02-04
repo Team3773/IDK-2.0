@@ -29,7 +29,7 @@ public class ballOutakeCommand extends Command {
     if(Robot.oi.xbox.getBumperPressed(Hand.kRight)){
       outakeVar = !outakeVar; 
   }
-  Robot.ballIntakeSub.setmotor(1.0);
+  Robot.ballOutakeSub.setmotor(1.0);
 }
   // Make this return true when this Command no longer needs to run execute()
   @Override
