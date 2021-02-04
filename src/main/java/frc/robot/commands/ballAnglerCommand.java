@@ -17,7 +17,7 @@ import frc.robot.RobotMap;
 
 public class ballAnglerCommand extends Command {
   public double ballAnglerVar;
-  private XboxController m_driverController;
+  private XboxController angler;
 
   public ballAnglerCommand() {
     requires(Robot.ballAnglerSub);
@@ -35,7 +35,7 @@ public class ballAnglerCommand extends Command {
   @Override
   protected void execute() {
     
-    Robot.ballAnglerSub.setmotor(m_driverController.getY(GenericHID.Hand.kRight));
+    Robot.ballAnglerSub.setmotor(angler.getY(GenericHID.Hand.kRight));
     }
     
 
