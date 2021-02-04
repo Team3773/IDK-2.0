@@ -25,15 +25,15 @@ public class RobotMap {
   // public static int rangefinderModule = 1;
 
   //CAN
-  public static int leftMasterPort = 3;
-  public static int leftSlavePort = 4;
-  public static int rightMasterPort = 1;
-  public static int rightSlavePort = 2;
+  public static int leftMasterPort = 8;
+  public static int leftSlavePort = 7;
+  public static int rightMasterPort = 5;
+  public static int rightSlavePort = 4;
 
-  public static int ballAnglerPort = 6;
-  public static int ballIntakePort = 5; 
-  public static int ballOutakePort = 7;
-  public static int ballBeltPort = 9;
+  public static int ballAnglerPort = 13;
+  public static int ballIntakePort = 14; 
+  public static int ballOutakePort = 9;
+  public static int ballBeltPort = 16;
 
   //USB
   public static int joystickPort = 3;
