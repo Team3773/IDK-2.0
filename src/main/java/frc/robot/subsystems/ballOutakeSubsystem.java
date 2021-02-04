@@ -17,7 +17,7 @@ public class ballOutakeSubsystem extends Subsystem {
   
   
     public ballOutakeSubsystem () {
-      ballOutake = new PWMTalonSRX(RobotMap.ballIntakePort);
+      ballOutake = new PWMTalonSRX(RobotMap.ballOutakePort);
 
     }
     public void setmotor (double speed) {
