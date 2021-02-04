@@ -8,27 +8,27 @@
 package frc.robot.subsystems;
 
 import frc.robot.RobotMap;
-import frc.robot.commands.liftArmCommand;
+import frc.robot.commands.ballAnglerCommand;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.PWMTalonSRX;
 
-public class liftArmSubsystem extends Subsystem {
-   PWMTalonSRX liftArm = null;
+public class ballAnglerSubsystem extends Subsystem {
+   PWMTalonSRX ballAngler = null;
   
    
 
-   public liftArmSubsystem () {
-     liftArm = new PWMTalonSRX(RobotMap.liftArmPort);
+   public ballAnglerSubsystem () {
+     ballAngler = new PWMTalonSRX(RobotMap.ballAnglerPort);
 
    }
    public void setmotor(double speed) {
-    liftArm.set(speed);
+    ballAngler.set(speed);
    }
   
   
    @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new liftArmCommand());
+    setDefaultCommand(new ballAnglerCommand());
   }
 }

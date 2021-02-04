@@ -30,9 +30,8 @@ public class RobotMap {
   public static int rightMasterPort = 1;
   public static int rightSlavePort = 2;
 
-  public static int liftArmPort = 6;
+  public static int ballAnglerPort = 6;
   public static int ballIntakePort = 5; 
-  public static int liftWinchPort = 8;
   public static int ballOutakePort = 7;
   public static int ballBeltPort = 9;
 

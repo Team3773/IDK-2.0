@@ -21,7 +21,7 @@ public class DriveManuallyCommand extends Command {
     requires(Robot.driveSubsystem); 
   }
   
-private static double speedScaler = 0.75;
+private static double speedScaler = 1;
 
 
   @Override

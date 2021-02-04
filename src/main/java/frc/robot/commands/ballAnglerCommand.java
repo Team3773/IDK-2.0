@@ -7,44 +7,49 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
-// import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class liftWinchCommand extends Command {
-  boolean liftWinchVar;
-  public liftWinchCommand() {
-    requires(Robot.liftWinchSub);
 
-  } 
+public class ballAnglerCommand extends Command {
+  public double ballAnglerVar;
+  private XboxController m_driverController;
+
+  public ballAnglerCommand() {
+    requires(Robot.ballAnglerSub);
+    
+  }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    liftWinchVar = false;
+    Robot.ballAnglerSub.setmotor(0);
 
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.oi.xbox.getBButtonPressed()){
-      liftWinchVar = !liftWinchVar; 
     
+    Robot.ballAnglerSub.setmotor(m_driverController.getY(GenericHID.Hand.kRight));
     }
-    Robot.liftWinchSub.setmotor(0.25);
+    
 
-  }
-  //Motor speed can range from -1 to 1
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return false; 
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
   }
+
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run

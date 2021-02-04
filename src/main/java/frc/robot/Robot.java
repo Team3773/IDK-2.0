@@ -43,8 +43,7 @@ import frc.robot.subsystems.DriveSubsystem;
 public class Robot extends TimedRobot {
   public static DriveSubsystem driveSubsystem = null;
   public static ballIntakeSubsystem ballIntakeSub = null;
-  public static liftArmSubsystem liftArmSub = null;
-  public static liftWinchSubsystem liftWinchSub = null;
+  public static ballAnglerSubsystem ballAnglerSub = null;
   public static ballOutakeSubsystem ballOutakeSub = null;
   public static ballBeltSubsystem ballBeltSub = null;
   
@@ -63,8 +62,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     driveSubsystem = new DriveSubsystem();
     ballIntakeSub = new ballIntakeSubsystem();
-    liftArmSub = new liftArmSubsystem();
-    liftWinchSub = new liftWinchSubsystem();
+    ballAnglerSub = new ballAnglerSubsystem();
     ballOutakeSub = new ballOutakeSubsystem();
     ballBeltSub = new ballBeltSubsystem();
     
