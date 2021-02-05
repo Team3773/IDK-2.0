@@ -14,14 +14,31 @@ import edu.wpi.first.wpilibj.XboxController;
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
+
 public class OI {
+  //need static XboxController object to be used everywhere
+  public static XboxController xbox;
+  public static Joystick stick;
+
+  //init method for creating input objects
+  public void initControls(){
+    xbox = new XboxController(RobotMap.xboxPort);
+    stick = new Joystick(RobotMap.joystickPort);
+  }
+
+  //default constructor for OI class
+  public OI(){
+    initControls();
+  }
+
+
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.
   // You create one by telling it which joystick it's on and which button
   // number it is.
-  public Joystick stick = new Joystick(RobotMap.joystickPort);
-  public XboxController xbox = new XboxController(RobotMap.xboxPort);
+  //public Joystick stick = new Joystick(RobotMap.joystickPort);
+  //public XboxController xbox = new XboxController(RobotMap.xboxPort);
 
   // Button button = new JoystickButton(stick, buttonNumber);
 

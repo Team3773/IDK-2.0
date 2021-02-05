@@ -72,6 +72,8 @@ public class Robot extends TimedRobot {
 
     
     //limitSwitchfront = new DigitalInput(1);//RobotMap.limitswitchportfront);
+
+    //creating OI will run the default constructor and subsequently inititalize input objects
     oi = new OI(); 
     CameraServer.getInstance().startAutomaticCapture();
     
