@@ -34,7 +34,7 @@ public class ballAnglerCommand extends Command {
   protected void execute() {
     Robot.ballAnglerSub.setmotor(yValue);
     yValue=OI.xbox.getY(GenericHID.Hand.kRight);
-    //System.out.println(yValue);
+    System.out.println(yValue);
     }
     
 
