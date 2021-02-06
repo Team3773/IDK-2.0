@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Robot;
 import frc.robot.OI;
@@ -14,6 +15,7 @@ import frc.robot.OI;
 
 public class ballAnglerCommand extends Command {
   public double ballAnglerVar;
+  private double yValue;
 
   public ballAnglerCommand() {
     requires(Robot.ballAnglerSub);
@@ -30,7 +32,9 @@ public class ballAnglerCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.ballAnglerSub.setmotor(OI.xbox.getY(GenericHID.Hand.kRight));
+    Robot.ballAnglerSub.setmotor(yValue);
+    yValue=OI.xbox.getY(GenericHID.Hand.kRight);
+    //System.out.println(yValue);
     }
     
 
