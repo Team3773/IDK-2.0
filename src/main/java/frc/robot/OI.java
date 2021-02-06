@@ -9,6 +9,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.driveGroup;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -19,6 +22,8 @@ public class OI {
   //need static XboxController object to be used everywhere
   public static XboxController xbox;
   public static Joystick stick;
+  
+  
 
   //init method for creating input objects
   public void initControls(){
@@ -28,8 +33,10 @@ public class OI {
 
   //default constructor for OI class
   public OI(){
+    Button yButton = new JoystickButton(xbox, 2);
+    yButton.whenPressed (new driveGroup());
     initControls();
-  }
+  
 
 
   //// CREATING BUTTONS
@@ -40,7 +47,7 @@ public class OI {
   //public Joystick stick = new Joystick(RobotMap.joystickPort);
   //public XboxController xbox = new XboxController(RobotMap.xboxPort);
 
-  // Button button = new JoystickButton(stick, buttonNumber);
+  
 
   // There are a few additional built in buttons you can use. Additionally,
   // by subclassing Button you can create custom triggers and bind those to
@@ -61,4 +68,5 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
+}
 }

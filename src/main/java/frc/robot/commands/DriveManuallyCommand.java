@@ -18,10 +18,11 @@ public class DriveManuallyCommand extends Command {
   Encoder e = null;
   public DriveManuallyCommand() {
     // Use requires() here to declare subsystem dependencies
+    
     requires(Robot.driveSubsystem); 
   }
-  
-private static double speedScaler = 1;
+  private static double speedScaler = 1;
+
 
 
   @Override
