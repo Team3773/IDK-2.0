@@ -15,13 +15,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.driveAuto;
 // import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.subsystems.*;
-import edu.wpi.first.cameraserver.CameraServer;
+
 // import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 // import java.sql.Time;
 import frc.robot.subsystems.DriveSubsystem;
 // import edu.wpi.first.wpilibj.PWM;
 // import frc.robot.commands.DriveManuallyCommand;
-
 
 //import frc.robot.commands.ballDoorCommand;
 //import frc.robot.subsystems.ballDoorSubsystem;
@@ -32,6 +31,20 @@ import frc.robot.subsystems.DriveSubsystem;
 //import edu.wpi.first.wpilibj.DigitalInput;
 //import edu.wpi.first.wpilibj
 //import frc.robot.commands.DriveManuallyCommand;
+
+//vision imports:
+import frc.robot.GripPipelineBallFinder;
+
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.vision.VisionRunner;
+import edu.wpi.first.vision.VisionThread;
+
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -46,12 +59,22 @@ public class Robot extends TimedRobot {
   public static liftArmSubsystem liftArmSub = null;
   public static liftWinchSubsystem liftWinchSub = null;
   public static ballOutakeSubsystem ballOutakeSub = null;
-  public static ballBeltSubsystem ballBeltSub = null;
-  
+  public static ballBeltSubsystem ballBeltSub = null; 
   public static OI oi;
+
+  //things for vision:
+  private static final int IMG_WIDTH = 320;
+  private static final int IMG_HEIGHT = 240;
+  private VisionThread visionThread;
+  private double centerX = 0.0;
+  private final Object imgLock = new Object();
  
+
+
+
   driveAuto auto= null;
- // public static CameraServer cs = null;
+
+
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -69,13 +92,24 @@ public class Robot extends TimedRobot {
     ballBeltSub = new ballBeltSubsystem();
     
     
-   
+   //things for vision:
+   UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+   camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+   visionThread = new VisionThread(camera, new GripPipelineBallFinder(), pipeline -> {
+       if (!pipeline.filterContoursOutput().isEmpty()) {
+           Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+           synchronized (imgLock) {
+               centerX = r.x + (r.width / 2);
+           }
+       }
+   });
+   visionThread.start();
 
 
     
     //limitSwitchfront = new DigitalInput(1);//RobotMap.limitswitchportfront);
     oi = new OI(); 
-    CameraServer.getInstance().startAutomaticCapture();
+    //CameraServer.getInstance().startAutomaticCapture();
     
   
 
@@ -140,9 +174,13 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     //addSequential(new driveAuto());
 
-
-  
-      
+    //things for vision:
+    double centerX;
+    synchronized (imgLock) {
+        centerX = this.centerX;
+    }
+    double turn = centerX - (IMG_WIDTH / 2);
+    driveSubsystem.driveManually(-0.6, turn * 0.005);      
     
   }
   // Drives forward at half speed until the robot has moved 5 feet, then stops:
