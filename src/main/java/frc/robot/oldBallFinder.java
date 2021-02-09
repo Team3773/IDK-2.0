@@ -25,7 +25,7 @@ import org.opencv.objdetect.*;
 *
 * @author GRIP
 */
-public class GripPipelineBallFinder implements VisionPipeline {
+public class oldBallFinder implements VisionPipeline {
 
 	//Outputs
 	private Mat cvResizeOutput = new Mat();

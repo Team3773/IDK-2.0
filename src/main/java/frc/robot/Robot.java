@@ -33,7 +33,6 @@ import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.commands.DriveManuallyCommand;
 
 //vision imports:
-import frc.robot.GripPipelineBallFinder;
 
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
@@ -95,7 +94,8 @@ public class Robot extends TimedRobot {
    //things for vision:
    UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
    camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
-   visionThread = new VisionThread(camera, new GripPipelineBallFinder(), pipeline -> {
+   visionThread = new VisionThread(camera, new GripPipelineLinesContours(), pipeline -> {
+     // use pipeline to find centerpoint of ball.
        if (!pipeline.filterContoursOutput().isEmpty()) {
            Rect r = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
            synchronized (imgLock) {
@@ -179,15 +179,11 @@ public class Robot extends TimedRobot {
     synchronized (imgLock) {
         centerX = this.centerX;
     }
+    //turn robot towards centerpoint of ball.
     double turn = centerX - (IMG_WIDTH / 2);
     driveSubsystem.driveManually(-0.6, turn * 0.005);      
     
   }
-  // Drives forward at half speed until the robot has moved 5 feet, then stops:
-  
-
-
-
 
 
   @Override
