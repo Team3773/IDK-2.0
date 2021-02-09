@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.XboxController;
 
 public class OI {
   //need static XboxController object to be used everywhere
-  public static XboxController xbox;
-  public static Joystick stick;
+  public XboxController xbox;
+  public Joystick stick;
 
   //init method for creating input objects
   public void initControls(){

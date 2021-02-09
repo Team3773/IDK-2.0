@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Robot;
-import frc.robot.OI;
 
 
 public class ballAnglerCommand extends Command {
@@ -33,7 +32,7 @@ public class ballAnglerCommand extends Command {
   @Override
   protected void execute() {
     Robot.ballAnglerSub.setmotor(yValue);
-    yValue=OI.xbox.getY(GenericHID.Hand.kRight);
+    yValue=Robot.oi.xbox.getY(GenericHID.Hand.kRight);
     System.out.println(yValue);
     }
     
