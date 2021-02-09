@@ -39,7 +39,6 @@ import org.opencv.imgproc.Imgproc;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.vision.VisionRunner;
 import edu.wpi.first.vision.VisionThread;
 
 
