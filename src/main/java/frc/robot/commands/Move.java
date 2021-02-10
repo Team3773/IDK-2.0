@@ -14,27 +14,33 @@ import frc.robot.commands.driveGroup;
 
 public class Move extends Command {
     double m_time;
+    double move;
+    double turn;
 
   public Move(double time) {
     time = m_time;
-    
+    requires(Robot.driveSubsystem);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
 
   public Move(double m_time, double move, double turn) {
-}
+    this.m_time = m_time;
+    this.move = move;
+    this.turn = turn;
+  }
 
 // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.driveSubsystem.driveManually(0.5,0.5);
-    setTimeout(m_time);
+   
+    setTimeout(this.m_time);
     }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.driveSubsystem.driveManually(this.move,this.turn);
   }
 
   // Make this return true when this Command no longer needs to run execute()

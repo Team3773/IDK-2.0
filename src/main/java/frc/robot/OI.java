@@ -20,8 +20,8 @@ import frc.robot.commands.driveGroup;
 
 public class OI {
   //need static XboxController object to be used everywhere
-  public static XboxController xbox;
-  public static Joystick stick;
+  public XboxController xbox;
+  public Joystick stick;
   
   
 
@@ -33,10 +33,10 @@ public class OI {
 
   //default constructor for OI class
   public OI(){
+    initControls();
     Button yButton = new JoystickButton(xbox, 2);
     yButton.whenPressed (new driveGroup());
-    initControls();
-  
+  }
 
 
   //// CREATING BUTTONS
@@ -68,5 +68,4 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
-}
 }
