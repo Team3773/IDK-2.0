@@ -20,5 +20,12 @@ public class ballOutakeSubsystem extends SubsystemBase {
     public void setmotor (double speed) {
       ballOutake.set(speed);
     }
+    public void startMotor (){
+      ballOutake.set(1);
+    }
+
+    public void stopMotor(){
+      ballOutake.set(0);
+    }
 
 }

@@ -17,7 +17,15 @@ public class ballIntakeSubsystem extends SubsystemBase {
     public ballIntakeSubsystem () {
     }
 
-    public void setmotor (double speed) {
+    public void setMotor (double speed) {
       ballIntake.set(speed);
+    }
+
+    public void startMotor (){
+      ballIntake.set(1);
+    }
+
+    public void stopMotor(){
+      ballIntake.set(0);
     }
 }

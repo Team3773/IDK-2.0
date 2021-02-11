@@ -12,9 +12,11 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.driveConstants;
 import frc.robot.Constants.usbConstant;
+import frc.robot.commands.BallAnglerCommand;
 import frc.robot.commands.DriveDistance;
 import frc.robot.commands.DriveManuallyCommand;
 import frc.robot.commands.TurnToAngle;
+import frc.robot.commands.beltCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ballAnglerSubsystem;
 import frc.robot.subsystems.ballBeltSubsystem;
@@ -68,8 +70,19 @@ public class RobotContainer {
         () -> stick.getY(),
         () -> stick.getX(),
         stick.getRawButtonPressed(driveConstants.reverseButton)
-        ));
+    ));
 
+    //belt commands need lots of work
+    beltSubsystem.setDefaultCommand(
+      new beltCommand(beltSubsystem)
+    );
+
+    //set angler to turn with xbox left stick
+    anglerSubsystem.setDefaultCommand(
+      new BallAnglerCommand(
+        anglerSubsystem,
+        () -> xbox.getX(GenericHID.Hand.kLeft)
+    ));
     
     chooser.setDefaultOption("drive 1 units?", drive1Units);
     chooser.addOption("drive 5 units", drive5Units);
@@ -89,10 +102,10 @@ public class RobotContainer {
    //bind left bumber to intake motor
     new JoystickButton(xbox, Button.kBumperLeft.value).whenPressed(
       new RunCommand(
-        () -> intakeSubsystem.setmotor(1),intakeSubsystem)
+        () -> intakeSubsystem.startMotor(),intakeSubsystem)
     ).whenReleased(
       new RunCommand(
-        () -> intakeSubsystem.setmotor(0), intakeSubsystem)
+        () -> intakeSubsystem.stopMotor(), intakeSubsystem)
     );
 
     //bind right bumper to shooter motor
@@ -103,7 +116,6 @@ public class RobotContainer {
       new RunCommand(
         () -> outakeSubsystem.setmotor(0), outakeSubsystem)
     );
-
 
     //bind x button to turn 25 degrees
     new JoystickButton(xbox, Button.kX.value)
