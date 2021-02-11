@@ -14,6 +14,7 @@ import frc.robot.Constants.driveConstants;
 import frc.robot.Constants.usbConstant;
 import frc.robot.commands.DriveDistance;
 import frc.robot.commands.DriveManuallyCommand;
+import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ballAnglerSubsystem;
 import frc.robot.subsystems.ballBeltSubsystem;
@@ -36,7 +37,7 @@ public class RobotContainer {
   private final ballBeltSubsystem beltSubsystem = new ballBeltSubsystem();
   private final ballIntakeSubsystem intakeSubsystem = new ballIntakeSubsystem();
   private final ballOutakeSubsystem outakeSubsystem = new ballOutakeSubsystem();
-
+  
   //Autonomous Commmands
   private final DriveDistance drive1Units = 
     new DriveDistance(driveSubsystem, 1, 0.5, 0);
@@ -102,6 +103,11 @@ public class RobotContainer {
       new RunCommand(
         () -> outakeSubsystem.setmotor(0), outakeSubsystem)
     );
+
+
+    //bind x button to turn 25 degrees
+    new JoystickButton(xbox, Button.kX.value)
+        .whenPressed(new TurnToAngle(driveSubsystem, 25).withTimeout(5));
 
   }
 
