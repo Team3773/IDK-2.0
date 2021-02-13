@@ -14,35 +14,36 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class ballBeltSubsystem extends SubsystemBase {
-   private final WPI_TalonSRX ballBelt = new WPI_TalonSRX(canConstant.ballBeltPort);
-   private DigitalInput lowerBallPresent = new DigitalInput(sensorConstant.lowerBallPresentPort);
-   public DigitalInput upperBallPresent = new DigitalInput(sensorConstant.upperBallPresentPort); 
-  
-    public ballBeltSubsystem () {
-    }
 
-    public boolean islowerBallPresentSet() {
-      return !lowerBallPresent.get();
-    }
+  private final WPI_TalonSRX ballBelt = new WPI_TalonSRX(canConstant.ballBeltPort);
+  private DigitalInput lowerBallPresent = new DigitalInput(sensorConstant.lowerBallPresentPort);
+  public DigitalInput upperBallPresent = new DigitalInput(sensorConstant.upperBallPresentPort);
 
-    public boolean isUpperBallPresentSet() {
-      return !upperBallPresent.get();
-    }
+  public ballBeltSubsystem() {
+  }
 
-    public void setmotor (double speed) {
-      ballBelt.set(speed);
-    }
+  public boolean islowerBallPresentSet() {
+    return !lowerBallPresent.get();
+  }
 
-    public void beltOff(){
-      ballBelt.set(0);
-    }
+  public boolean isUpperBallPresentSet() {
+    return !upperBallPresent.get();
+  }
 
-    public void beltReverse(){
-      ballBelt.set(-0.5);
-    }
+  public void setmotor(double speed) {
+    ballBelt.set(speed);
+  }
 
-    public void beltForward(){
-      ballBelt.set(0.5);
-    }
+  public void beltOff() {
+    ballBelt.set(0);
+  }
+
+  public void beltReverse() {
+    ballBelt.set(-0.5);
+  }
+
+  public void beltForward() {
+    ballBelt.set(0.5);
+  }
 
 }

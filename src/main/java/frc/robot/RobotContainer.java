@@ -6,8 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.XboxController.Button;
+// import edu.wpi.first.wpilibj.XboxController;
+// import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.driveConstants;
@@ -24,10 +24,11 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a "declarative" paradigm, very little robot logic should
+ * actually be handled in the {@link Robot} periodic methods (other than the
+ * scheduler calls). Instead, the structure of the robot (including subsystems,
+ * commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
@@ -37,39 +38,44 @@ public class RobotContainer {
   private final ballIntakeSubsystem intakeSubsystem = new ballIntakeSubsystem();
   private final ballOutakeSubsystem outakeSubsystem = new ballOutakeSubsystem();
 
-  //Autonomous Commmands
-  private final DriveDistance drive1Units = 
-    new DriveDistance(driveSubsystem, 1, 0.5, 0);
+  // Autonomous Commmands
+  private final DriveDistance drive1Units = new DriveDistance(driveSubsystem, 1, 0.5, 0);
 
-  private final DriveDistance drive5Units = 
-    new DriveDistance(driveSubsystem, 5, 0.5, 0);
+  private final DriveDistance drive5Units = new DriveDistance(driveSubsystem, 5, 0.5, 0);
 
-  private final DriveDistance drive10Units = 
-    new DriveDistance(driveSubsystem, 10, 0.5, 0);
+  private final DriveDistance drive10Units = new DriveDistance(driveSubsystem, 10, 0.5, 0);
 
   // A chooser for autonomous commands
   SendableChooser<Command> chooser = new SendableChooser<>();
 
-
-  XboxController xbox = new XboxController(usbConstant.xboxPort);
+  // XboxController xbox = new XboxController(usbConstant.xboxPort);
   Joystick stick = new Joystick(usbConstant.joystickPort);
+  JoystickButton button1 = new JoystickButton(stick, 1);
+  JoystickButton button2 = new JoystickButton(stick, 2);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  public JoystickButton getButton1() {
+    return button1;
+  }
+
+  public JoystickButton getButton2() {
+    return button2;
+  }
+
+  // public static final byte kDefaultThrottleChannel = 3;
+
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
-    //Configure default commands
-    //going to try using lambdas here...
-    driveSubsystem.setDefaultCommand( 
-      new DriveManuallyCommand(
-        driveSubsystem,
-        () -> stick.getY(),
-        () -> stick.getX(),
-        stick.getRawButtonPressed(driveConstants.reverseButton)
-        ));
+    // Configure default commands
+    // going to try using lambdas here...
+    driveSubsystem.setDefaultCommand(new DriveManuallyCommand(driveSubsystem, () -> stick.getY(), () -> stick.getX(),
+        stick.getRawButtonPressed(driveConstants.reverseButton)));
+    ballAnglerSubsystem.setDefaultCommand(new ballAnglerCommand(ballAnglerSubsystem, () -> stick.getZ()));
 
-    
     chooser.setDefaultOption("drive 1 units?", drive1Units);
     chooser.addOption("drive 5 units", drive5Units);
     chooser.addOption("drive 10 units", drive10Units);
@@ -77,31 +83,36 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by instantiating a {@link GenericHID} or one of its subclasses
+   * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then
+   * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-   // new JoystickButton(xbox, Button.kY.value).whenPressed(null);
+    // new JoystickButton(xbox, Button.kY.value).whenPressed(null);
 
-   //bind left bumber to intake motor
-    new JoystickButton(xbox, Button.kBumperLeft.value).whenPressed(
-      new RunCommand(
-        () -> intakeSubsystem.setmotor(1),intakeSubsystem)
-    ).whenReleased(
-      new RunCommand(
-        () -> intakeSubsystem.setmotor(0), intakeSubsystem)
-    );
+    // bind left bumper to intake motor
+    button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(1), intakeSubsystem))
+        .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
 
-    //bind right bumper to shooter motor
-    new JoystickButton(xbox, Button.kBumperRight.value).whenPressed(
-      new RunCommand(
-        () -> outakeSubsystem.setmotor(1), outakeSubsystem)
-    ).whenReleased(
-      new RunCommand(
-        () -> outakeSubsystem.setmotor(0), outakeSubsystem)
-    );
+    // new JoystickButton(stick, JoystickButton.button1.value).whenPressed(
+    // new RunCommand(
+    // () -> intakeSubsystem.setmotor(1),intakeSubsystem)
+    // ).whenReleased(
+    // new RunCommand(
+    // () -> intakeSubsystem.setmotor(0), intakeSubsystem)
+    // );
+
+    // bind right bumper to shooter motor
+    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
+        .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
+    // new JoystickButton(xbox, Button.kBumperRight.value).whenPressed(
+    // new RunCommand(
+    // () -> outakeSubsystem.setmotor(1), outakeSubsystem)
+    // ).whenReleased(
+    // new RunCommand(
+    // () -> outakeSubsystem.setmotor(0), outakeSubsystem)
+    // );
 
   }
 

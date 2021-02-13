@@ -12,13 +12,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.canConstant;
 
 public class ballOutakeSubsystem extends SubsystemBase {
-   private final WPI_TalonSRX ballOutake = new WPI_TalonSRX(canConstant.ballOutakePort);  
-  
-    public ballOutakeSubsystem () {
-    }
+  private final WPI_TalonSRX ballOutake = new WPI_TalonSRX(canConstant.ballOutakePort);
 
-    public void setmotor (double speed) {
-      ballOutake.set(speed);
-    }
+  public ballOutakeSubsystem() {
+
+  }
+
+  public void setmotor(double speed) {
+    ballOutake.set(speed);
+  }
 
 }
