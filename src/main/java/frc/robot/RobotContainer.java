@@ -19,6 +19,7 @@ import frc.robot.subsystems.ballAnglerSubsystem;
 import frc.robot.subsystems.ballBeltSubsystem;
 import frc.robot.subsystems.ballIntakeSubsystem;
 import frc.robot.subsystems.ballOutakeSubsystem;
+import frc.robot.commands.ballAnglerCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -74,7 +75,7 @@ public class RobotContainer {
     // going to try using lambdas here...
     driveSubsystem.setDefaultCommand(new DriveManuallyCommand(driveSubsystem, () -> stick.getY(), () -> stick.getX(),
         stick.getRawButtonPressed(driveConstants.reverseButton)));
-    ballAnglerSubsystem.setDefaultCommand(new ballAnglerCommand(ballAnglerSubsystem, () -> stick.getZ()));
+    anglerSubsystem.setDefaultCommand(new ballAnglerCommand(anglerSubsystem, () -> stick.getZ()));
 
     chooser.setDefaultOption("drive 1 units?", drive1Units);
     chooser.addOption("drive 5 units", drive5Units);
@@ -95,6 +96,9 @@ public class RobotContainer {
     button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(1), intakeSubsystem))
         .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
 
+    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
+        .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
+
     // new JoystickButton(stick, JoystickButton.button1.value).whenPressed(
     // new RunCommand(
     // () -> intakeSubsystem.setmotor(1),intakeSubsystem)
@@ -102,10 +106,7 @@ public class RobotContainer {
     // new RunCommand(
     // () -> intakeSubsystem.setmotor(0), intakeSubsystem)
     // );
-
     // bind right bumper to shooter motor
-    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
-        .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
     // new JoystickButton(xbox, Button.kBumperRight.value).whenPressed(
     // new RunCommand(
     // () -> outakeSubsystem.setmotor(1), outakeSubsystem)

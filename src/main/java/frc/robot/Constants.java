@@ -33,6 +33,10 @@ public final class Constants {
 
     }
 
+    public static final class angleConstants {
+        public static final int anglerScalar = 1;
+    }
+
     public static final class driveConstants {
         public static final int leftMasterPort = 8;
         public static final int leftSlavePort = 7;

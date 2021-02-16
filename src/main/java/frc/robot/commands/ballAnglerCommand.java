@@ -4,45 +4,36 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants.angleConstants;
 import frc.robot.subsystems.ballAnglerSubsystem;
+
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class ballAnglerCommand extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final ballAnglerSubsystem m_subsystem;
+  private final ballAnglerSubsystem ballAnglerSubsystem;
+  private final DoubleSupplier angle;
 
   /**
    * Creates a new ballAnglerCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ballAnglerCommand(ballAnglerSubsystem subsystem) {
-    m_subsystem = subsystem;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+  public ballAnglerCommand(ballAnglerSubsystem subsystem, DoubleSupplier angle) {
+    this.ballAnglerSubsystem = subsystem;
+    this.angle = angle;
+    addRequirements(this.ballAnglerSubsystem);
   }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
+  // Use addRequirements() here to declare subsystem dependencies.
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // added to get rid of warning
-    m_subsystem.periodic();
-  }
+    double tempAngle = angle.getAsDouble() * angleConstants.anglerScalar;
+    // ballAnglerSubsystem.periodic();
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
+    ballAnglerSubsystem.ballAnglerCommand(tempAngle);
   }
 }

@@ -15,13 +15,17 @@ public class ballAnglerSubsystem extends SubsystemBase {
 
   private final WPI_TalonSRX ballAngler = new WPI_TalonSRX(canConstant.ballAnglerPort);
 
-  public ballAnglerSubsystem () {
+  public ballAnglerSubsystem() {
   }
+
   public void setmotor(double speed) {
-   ballAngler.set(speed);
+    ballAngler.set(speed);
   }
-  
-  public void stopMotor(){
+
+  public void stopMotor() {
     ballAngler.set(0);
+  }
+
+  public void ballAnglerCommand(double tempAngle) {
   }
 }
