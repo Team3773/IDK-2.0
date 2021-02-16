@@ -51,16 +51,14 @@ public class RobotContainer {
 
   // XboxController xbox = new XboxController(usbConstant.xboxPort);
   Joystick stick = new Joystick(usbConstant.joystickPort);
-  JoystickButton button1 = new JoystickButton(stick, 1);
-  JoystickButton button2 = new JoystickButton(stick, 2);
-
-  public JoystickButton getButton1() {
-    return button1;
-  }
-
-  public JoystickButton getButton2() {
-    return button2;
-  }
+  
+  //getters are not relaveant since other classes do not need to access button objects
+  // public JoystickButton getButton1() {
+  //   return button1;
+  // }
+  // public JoystickButton getButton2() {
+  //   return button2;
+  // }
 
   // public static final byte kDefaultThrottleChannel = 3;
 
@@ -90,8 +88,9 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // new JoystickButton(xbox, Button.kY.value).whenPressed(null);
-
+    JoystickButton button1 = new JoystickButton(stick, 1);
+    JoystickButton button2 = new JoystickButton(stick, 2);
+    
     // bind left bumper to intake motor
     button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(1), intakeSubsystem))
         .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
@@ -99,6 +98,7 @@ public class RobotContainer {
     button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
         .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
 
+    // new JoystickButton(xbox, Button.kY.value).whenPressed(null);
     // new JoystickButton(stick, JoystickButton.button1.value).whenPressed(
     // new RunCommand(
     // () -> intakeSubsystem.setmotor(1),intakeSubsystem)
