@@ -1,2 +1,3 @@
 # IDK-2.0
-IDK but compatible with 2021 WPILib. 
+
+2021 robot code for Team 3773.
