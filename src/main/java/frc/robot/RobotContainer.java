@@ -51,13 +51,14 @@ public class RobotContainer {
 
   // XboxController xbox = new XboxController(usbConstant.xboxPort);
   Joystick stick = new Joystick(usbConstant.joystickPort);
-  
-  //getters are not relaveant since other classes do not need to access button objects
+
+  // getters are not relaveant since other classes do not need to access button
+  // objects
   // public JoystickButton getButton1() {
-  //   return button1;
+  // return button1;
   // }
   // public JoystickButton getButton2() {
-  //   return button2;
+  // return button2;
   // }
 
   // public static final byte kDefaultThrottleChannel = 3;
@@ -73,7 +74,7 @@ public class RobotContainer {
     // going to try using lambdas here...
     driveSubsystem.setDefaultCommand(new DriveManuallyCommand(driveSubsystem, () -> stick.getY(), () -> stick.getX(),
         stick.getRawButtonPressed(driveConstants.reverseButton)));
-    anglerSubsystem.setDefaultCommand(new ballAnglerCommand(anglerSubsystem, () -> stick.getZ()));
+    anglerSubsystem.setDefaultCommand(new ballAnglerCommand(anglerSubsystem, () -> stick.getThrottle()));
 
     chooser.setDefaultOption("drive 1 units?", drive1Units);
     chooser.addOption("drive 5 units", drive5Units);
@@ -90,7 +91,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     JoystickButton button1 = new JoystickButton(stick, 1);
     JoystickButton button2 = new JoystickButton(stick, 2);
-    
+
     // bind left bumper to intake motor
     button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(1), intakeSubsystem))
         .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
