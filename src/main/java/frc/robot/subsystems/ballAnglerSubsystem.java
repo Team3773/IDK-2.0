@@ -8,24 +8,43 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.angleConstants;
 import frc.robot.Constants.canConstant;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ballAnglerSubsystem extends SubsystemBase {
 
   private final WPI_TalonSRX ballAngler = new WPI_TalonSRX(canConstant.ballAnglerPort);
+  public final Encoder aEncoder = new Encoder( 
+    angleConstants.angleEncoderPorts[0],
+    angleConstants.angleEncoderPorts[1],
+    false,
+    EncodingType.k4X
+  );
 
   public ballAnglerSubsystem() {
+    aEncoder.setDistancePerPulse(angleConstants.angleEncoderDistancePerPulse);
+    SmartDashboard.putNumber("Encoder Distance", aEncoder.getDistance());
+    SmartDashboard.putNumber("Encoder Rate", aEncoder.getRate());
+  }
+  public double getAngle(){
+    return aEncoder.getDistance();
   }
 
-  public void setmotor(double speed) {
-    ballAngler.set(speed);
+  public void resetDistance(){
+    aEncoder.reset();
   }
 
   public void stopMotor() {
     ballAngler.set(0);
   }
 
+  public void setmotor(double speed) {
+    ballAngler.set(speed);
+  }
   public void ballAnglerCommand(double tempAngle) {
   }
 }
