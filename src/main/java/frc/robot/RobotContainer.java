@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.subsystems.ballAnglerSubsystem;
+import frc.robot.Constants.canConstant;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -63,7 +64,7 @@ public class RobotContainer {
   private Button button5;
 
   public Encoder aEncoder;
-  private double angle;
+  public double angle;
   final double kP = 0.5;
   public double setpoint = 0;
   private DigitalInput forwardLimitSwitch;
@@ -119,13 +120,13 @@ public class RobotContainer {
           false,
           EncodingType.k4X);
     
-    forwardLimitSwitch = new DigitalInput(9);
+    forwardLimitSwitch = new DigitalInput(angleConstants.forwardLimitSwitchPort);
 
           
   if (forwardLimitSwitch.get()){
-          setpoint = 100;
           aEncoder.reset(); 
           angle = 0;
+          outputSpeed = 0;
           
    } else {
     
