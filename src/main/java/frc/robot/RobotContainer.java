@@ -6,11 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-// import edu.wpi.first.wpilibj.XboxController;
-// import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.angleConstants;
 import frc.robot.Constants.driveConstants;
 import frc.robot.Constants.usbConstant;
 import frc.robot.commands.DriveDistance;
@@ -24,6 +24,8 @@ import frc.robot.commands.ballAnglerCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.subsystems.ballAnglerSubsystem;
 
@@ -52,19 +54,20 @@ public class RobotContainer {
   // A chooser for autonomous commands
   SendableChooser<Command> chooser = new SendableChooser<>();
 
-  // XboxController xbox = new XboxController(usbConstant.xboxPort);
   Joystick stick = new Joystick(usbConstant.joystickPort);
+ 
+  private Button button1;
+  private Button button2;
+  private Button button3;
+  private Button button4;
+  private Button button5;
 
-  // getters are not relaveant since other classes do not need to access button
-  // objects
-  // public JoystickButton getButton1() {
-  // return button1;
-  // }
-  // public JoystickButton getButton2() {
-  // return button2;
-  // }
-
-  // public static final byte kDefaultThrottleChannel = 3;
+  public Encoder aEncoder;
+  private double angle;
+  final double kP = 0.5;
+  public double setpoint = 0;
+  private DigitalInput forwardLimitSwitch;
+  private final double kAngleTick = Math.PI * 2.75 / 360.0;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -92,8 +95,11 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton button1 = new JoystickButton(stick, 1);
-    JoystickButton button2 = new JoystickButton(stick, 2);
+    button1 = new JoystickButton(stick, 1);
+    button2 = new JoystickButton(stick, 2);
+    button3 = new JoystickButton(stick, 3);
+    button4 = new JoystickButton(stick, 4);
+    button5 = new JoystickButton(stick, 5);
 
     // bind left bumper to intake motor
     button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(1), intakeSubsystem))
@@ -101,24 +107,42 @@ public class RobotContainer {
 
     button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
         .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
+    
+    double sensorPosition = aEncoder.get() * kAngleTick;
+    double error = setpoint - sensorPosition;
+    double outputSpeed = kP * error;
+    double angle = aEncoder.get();
 
-    // new JoystickButton(xbox, Button.kY.value).whenPressed(null);
-    // new JoystickButton(stick, JoystickButton.button1.value).whenPressed(
-    // new RunCommand(
-    // () -> intakeSubsystem.setmotor(1),intakeSubsystem)
-    // ).whenReleased(
-    // new RunCommand(
-    // () -> intakeSubsystem.setmotor(0), intakeSubsystem)
-    // );
-    // bind right bumper to shooter motor
-    // new JoystickButton(xbox, Button.kBumperRight.value).whenPressed(
-    // new RunCommand(
-    // () -> outakeSubsystem.setmotor(1), outakeSubsystem)
-    // ).whenReleased(
-    // new RunCommand(
-    // () -> outakeSubsystem.setmotor(0), outakeSubsystem)
-    // );
+    aEncoder = new Encoder( 
+          angleConstants.angleEncoderPorts[1],
+          angleConstants.angleEncoderPorts[2],
+          false,
+          EncodingType.k4X);
+    
+    forwardLimitSwitch = new DigitalInput(9);
 
+          
+  if (forwardLimitSwitch.get()){
+          setpoint = 100;
+          aEncoder.reset(); 
+          angle = 0;
+          
+   } else {
+    
+  if (stick.getRawButton(3)) {
+          setpoint = 4.35833;
+        }
+    
+  if(stick.getRawButton(4)){
+          setpoint = 5.449541;
+  }
+    
+  if(stick.getRawButton(5)){
+          setpoint = 6.53945;
+        }
+  }
+      ballAnglerSubsystem.setmotor(outputSpeed);
+    
   }
 
   /**

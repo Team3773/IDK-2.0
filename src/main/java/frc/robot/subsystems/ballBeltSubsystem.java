@@ -18,7 +18,7 @@ public class ballBeltSubsystem extends SubsystemBase {
   private final WPI_TalonSRX ballBelt = new WPI_TalonSRX(canConstant.ballBeltPort);
   public DigitalInput lowerBallPresent = new DigitalInput(sensorConstant.lowerBallPresentPort);
   public DigitalInput upperBallPresent = new DigitalInput(sensorConstant.upperBallPresentPort);
-
+  
   public ballBeltSubsystem() {
   }
 
@@ -44,6 +44,11 @@ public class ballBeltSubsystem extends SubsystemBase {
 
   public void beltForward() {
     ballBelt.set(0.5);
+  }
+
+  public void read() {
+  System.out.print(lowerBallPresent.get());
+
   }
 
 }
