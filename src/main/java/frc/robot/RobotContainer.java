@@ -21,12 +21,14 @@ import frc.robot.subsystems.ballBeltSubsystem;
 import frc.robot.subsystems.ballIntakeSubsystem;
 import frc.robot.subsystems.ballOutakeSubsystem;
 import frc.robot.commands.ballAnglerCommand;
+import frc.robot.commands.ballBeltCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import frc.robot.commands.ballBeltCommand;
 import frc.robot.subsystems.ballAnglerSubsystem;
 
 /**
@@ -40,7 +42,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final ballAnglerSubsystem anglerSubsystem = new ballAnglerSubsystem();
-  private final ballBeltSubsystem beltSubsystem = new ballBeltSubsystem();
+  public final static ballBeltSubsystem beltSubsystem = new ballBeltSubsystem();
   private final ballIntakeSubsystem intakeSubsystem = new ballIntakeSubsystem();
   private final ballOutakeSubsystem outakeSubsystem = new ballOutakeSubsystem();
 
@@ -54,7 +56,7 @@ public class RobotContainer {
   // A chooser for autonomous commands
   SendableChooser<Command> chooser = new SendableChooser<>();
 
-  Joystick stick = new Joystick(usbConstant.joystickPort);
+  public Joystick stick = new Joystick(usbConstant.joystickPort);
  
   private Button button1;
   private Button button2;
@@ -63,9 +65,9 @@ public class RobotContainer {
   private Button button5;
 
   public Encoder aEncoder;
+  public double setpoint = 0;
   private double angle;
   final double kP = 0.5;
-  public double setpoint = 0;
   private DigitalInput forwardLimitSwitch;
   private final double kAngleTick = Math.PI * 2.75 / 360.0;
 
@@ -78,9 +80,12 @@ public class RobotContainer {
 
     // Configure default commands
     // going to try using lambdas here...
+
     driveSubsystem.setDefaultCommand(new DriveManuallyCommand(driveSubsystem, () -> stick.getY(), () -> stick.getX(),
         stick.getRawButtonPressed(driveConstants.reverseButton)));
     anglerSubsystem.setDefaultCommand(new ballAnglerCommand(anglerSubsystem, () -> stick.getThrottle()));
+    beltSubsystem.setDefaultCommand(new ballBeltCommand());
+    //beltSubsystem = new ballBeltSubsystem();
 
     chooser.setDefaultOption("drive 1 units?", drive1Units);
     chooser.addOption("drive 5 units", drive5Units);
