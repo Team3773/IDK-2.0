@@ -4,82 +4,46 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.subsystems.ballBeltSubsystem;
-import frc.robot.RobotContainer;
+
 
 public class ballBeltCommand extends CommandBase {
-  boolean beltVar;
-  boolean beltReverse;
-  boolean lowerBallPresent;
-  boolean upperBallPresent;
-  Joystick stick;
+  private boolean reverse;
+  private boolean lowerBallPresent;
+  private boolean upperBallPresent;
+  private final ballBeltSubsystem beltSubsystem;
+
  
   /** Creates a new ballBeltCommand. */
-  public ballBeltCommand() {
-    addRequirements(RobotContainer.beltSubsystem);
+  public ballBeltCommand(ballBeltSubsystem beltSubsystem, boolean reverse) {
+    this.beltSubsystem = beltSubsystem;
+    this.reverse = reverse;
+    addRequirements(this.beltSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    beltVar = false;
-    beltReverse = false;
-    lowerBallPresent = false;
-    upperBallPresent = false;
-    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(stick.getRawButton(5)){
 
-      beltReverse = !beltReverse;
-    }
-    
-    if(stick.getRawButton(6)){
-      beltVar = !beltVar; 
-  }
-
-    if (beltReverse) {
-
-  RobotContainer.beltSubsystem.setmotor(-0.5);
-
-    }
-  
+    if (this.reverse) {
+      this.beltSubsystem.beltReverse();
+    } 
     else {
-
-      if(beltVar) {
-
-        RobotContainer.beltSubsystem.setmotor(0.5);
-
+      if(upperBallPresent == true) {
+        this.beltSubsystem.beltOff();
+      }else if(this.lowerBallPresent == true) {
+        this.beltSubsystem.beltForward();
       }
-  }
-    if(upperBallPresent = true) {
-
-      RobotContainer.beltSubsystem.setmotor(0.0);
-
-    }
-
-    if(lowerBallPresent = true) {
-
-      RobotContainer.beltSubsystem.setmotor(1.0);
-
-    }
-    if(upperBallPresent = true) {
-
-      RobotContainer.beltSubsystem.setmotor(0.0);
-
-    }
+    }  
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    this.beltSubsystem.beltOff();
+  }
 
   // Returns true when the command should end.
   @Override
