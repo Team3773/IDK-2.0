@@ -7,14 +7,13 @@ package frc.robot.commands;
 import frc.robot.Constants.angleConstants;
 import frc.robot.subsystems.ballAnglerSubsystem;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
 public class ballAnglerCommand extends CommandBase {
   private final ballAnglerSubsystem ballAnglerSubsystem;
-  private final Double setPoint;
+  private final double setPoint;
+  private final double kP = 0.5;
 
   /**
    * Creates a new ballAnglerCommand.
@@ -26,39 +25,36 @@ public class ballAnglerCommand extends CommandBase {
     this.setPoint = setPoint;
     addRequirements(this.ballAnglerSubsystem);
   }
-  
-  // Use addRequirements() here to declare subsystem dependencies.
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    // double sensorPosition = aEncoder.get() * kAngleTick;
-    // double error = setpoint - sensorPosition;
-    // double outputSpeed = kP * error;
-    // double angle = aEncoder.get();
 
-    // aEncoder = new Encoder( 
-    //       angleConstants.angleEncoderPorts[1],
-    //       angleConstants.angleEncoderPorts[2],
-    //       false,
-    //       EncodingType.k4X);
-    
-    // forwardLimitSwitch = new DigitalInput(9);
+    double sensorPosition = ballAnglerSubsystem.getAngle() * angleConstants.kAngleTick;
+    double error = setPoint - sensorPosition;
+    double outputSpeed = kP * error;
+  //double angle = ballAnglerSubsystem.getAngle();
 
-          
-  // if (forwardLimitSwitch.get()){
-  //   setpoint = 100;
-  //   aEncoder.reset(); 
-  //   angle = 0;
-          
+    ballAnglerSubsystem.setmotor(outputSpeed);
 
-  //     ballAnglerSubsystem.setmotor(outputSpeed);
-
-
-    // double tempAngle = angle.getAsDouble() * angleConstants.anglerScalar;
-    // // ballAnglerSubsystem.periodic();
-
-    // ballAnglerSubsystem.ballAnglerCommand(tempAngle);
   }
 }
+
+  /** if (forwardLimitSwitch.get()){
+     setpoint = 100;
+     aEncoder.reset(); 
+     angle = 0;
+
+     double tempAngle = angle.getAsDouble() * angleConstants.anglerScalar;
+     ballAnglerSubsystem.periodic();
+
+     ballAnglerSubsystem.ballAnglerCommand(tempAngle);
+
+     aEncoder = new Encoder( 
+           angleConstants.angleEncoderPorts[1],
+           angleConstants.angleEncoderPorts[2],
+           false,
+           EncodingType.k4X);
+    
+     forwardLimitSwitch = new DigitalInput(9);
+    */ 

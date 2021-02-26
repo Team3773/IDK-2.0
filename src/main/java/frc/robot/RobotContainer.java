@@ -115,18 +115,19 @@ public class RobotContainer {
 
     button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
         .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
-    
+
+    // setpoint = 4.35833;
+    // setpoint = 5.449541;
+    // setpoint = 6.53945;
+    //button?.whenPressed(new ballAnglerCommand(subsystem, setPoint);
+    button3.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 4.35833));
+    button4.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 5.449541));
+    button5.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 6.53945));
     button6.whenHeld(new ballBeltCommand(beltSubsystem, true))
         .whenReleased(new ballBeltCommand(beltSubsystem, false));
 
     new zeroAngler(this.anglerSubsystem);
 
-    // setpoint = 4.35833;
-    // setpoint = 5.449541;
-    // setpoint = 6.53945;
-    button3.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 4.0));
-    button4.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 2.0));
-    button5.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 2.0));
  }
 
   /**

@@ -21,9 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ballAnglerSubsystem extends SubsystemBase {
 
   private final static WPI_TalonSRX ballAngler = new WPI_TalonSRX(canConstant.ballAnglerPort);
-  private final double kP = 0.5;
-  private double setpoint = 0;
-  private final double kAngleTick = Math.PI * 2.75 / 360.0;
   private DigitalInput forwardLimitSwitch = new DigitalInput(Constants.angleConstants.limitSwitchPort);
   private Encoder aEncoder = new Encoder(
     angleConstants.angleEncoderPorts[1],
@@ -31,17 +28,17 @@ public class ballAnglerSubsystem extends SubsystemBase {
     false,
     EncodingType.k4X);
 
+  // private final double kAngleTick = Math.PI * 2.75 / 360.0;
+  // private final double kP = 0.5;
+  // private double setpoint = 0;
+
   public ballAnglerSubsystem() {
     //to init the angler we need to find the limit switch and set the encoder to zero
     //set motor to move until limit is reached
     //reset encoder
     //should be good to go
-    
 
-
-
-
-    aEncoder.setDistancePerPulse(angleConstants.angleEncoderDistancePerPulse);
+    aEncoder.setDistancePerPulse(angleConstants.kAngleTick);
     SmartDashboard.putNumber("Encoder", aEncoder.get());
     System.out.print(aEncoder.get());
   }
