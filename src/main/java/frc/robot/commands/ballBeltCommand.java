@@ -33,8 +33,10 @@ public class ballBeltCommand extends CommandBase {
     else {
       if(upperBallPresent == true) {
         this.beltSubsystem.beltOff();
+        System.out.println("Ball loaded!");
       }else if(this.lowerBallPresent == true) {
         this.beltSubsystem.beltForward();
+        System.out.println("Ball loading!");
       }
     }  
   }
