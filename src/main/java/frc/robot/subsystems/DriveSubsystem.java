@@ -36,7 +36,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem () {
       drive.setSafetyEnabled(false);
-      e.setDistancePerPulse(driveConstants.driveEncoderDistancePerPulse);
+      //e.setDistancePerPulse(driveConstants.driveEncoderDistancePerPulse);
   }
 
   //drive with arcadeDrive

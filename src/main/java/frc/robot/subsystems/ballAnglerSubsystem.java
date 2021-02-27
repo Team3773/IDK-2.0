@@ -11,23 +11,23 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.angleConstants;
 import frc.robot.Constants.canConstant;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
 public class ballAnglerSubsystem extends SubsystemBase {
 
-  private final static WPI_TalonSRX ballAngler = new WPI_TalonSRX(canConstant.ballAnglerPort);
+  private final static WPI_VictorSPX ballAngler = new WPI_VictorSPX(canConstant.ballAnglerPort);
   private DigitalInput forwardLimitSwitch = new DigitalInput(Constants.angleConstants.limitSwitchPort);
-  private Encoder aEncoder = new Encoder(
-    angleConstants.angleEncoderPorts[1],
-    angleConstants.angleEncoderPorts[2],
-    false,
-    EncodingType.k4X);
-
+  private Encoder aEncoder = new Encoder(0, 1);
+  // new Encoder(
+  //   0,
+  //   1);
+    //false,
+    //EncodingType.k4X
   // private final double kAngleTick = Math.PI * 2.75 / 360.0;
   // private final double kP = 0.5;
   // private double setpoint = 0;

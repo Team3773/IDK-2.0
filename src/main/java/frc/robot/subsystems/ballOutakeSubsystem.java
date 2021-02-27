@@ -8,18 +8,20 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.canConstant;
 
 public class ballOutakeSubsystem extends SubsystemBase {
-  private final WPI_VictorSPX ballOutake = new WPI_VictorSPX(canConstant.ballOutakePort);
+  private final WPI_VictorSPX ballOutake1 = new WPI_VictorSPX(canConstant.ballOutakePort1);
+  private final WPI_TalonSRX ballOutake = new WPI_TalonSRX(canConstant.ballOutakePort);
 
-  public ballOutakeSubsystem() {
 
-  }
+  public ballOutakeSubsystem() {}
 
   public void setmotor(double speed) {
-    ballOutake.set(speed);
+    ballOutake.set(-speed);
+    ballOutake1.set(-speed);
   }
 
 }

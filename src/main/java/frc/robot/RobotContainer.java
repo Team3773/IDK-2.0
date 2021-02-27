@@ -6,11 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants.angleConstants;
 import frc.robot.Constants.driveConstants;
 import frc.robot.Constants.usbConstant;
 import frc.robot.commands.DriveDistance;
@@ -27,10 +24,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
-import frc.robot.commands.ballBeltCommand;
-import frc.robot.subsystems.ballAnglerSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -110,10 +103,10 @@ public class RobotContainer {
     button6 = new JoystickButton(stick, 6);
 
     // bind left bumper to intake motor
-    button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(1), intakeSubsystem))
+    button2.toggleWhenPressed(new RunCommand(() -> intakeSubsystem.setmotor(1), intakeSubsystem))
         .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
 
-    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
+    button1.toggleWhenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
         .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
 
     // setpoint = 4.35833;
