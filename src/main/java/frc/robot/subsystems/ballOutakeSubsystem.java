@@ -16,9 +16,7 @@ public class ballOutakeSubsystem extends SubsystemBase {
   private final WPI_VictorSPX ballOutake1 = new WPI_VictorSPX(canConstant.ballOutakePort1);
 
 
-  public ballOutakeSubsystem() {
-
-  }
+  public ballOutakeSubsystem() {}
 
   public void setmotor(double speed) {
     ballOutake.set(speed);

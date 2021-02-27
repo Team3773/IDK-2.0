@@ -104,11 +104,11 @@ public class RobotContainer {
     button6 = new JoystickButton(stick, 6);
 
     // bind left bumper to intake motor
+    button1.toggleWhenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
+    .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
+    
     button2.toggleWhenPressed(new RunCommand(() -> intakeSubsystem.setmotor(1), intakeSubsystem))
         .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
-
-    button1.toggleWhenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
-        .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
 
     // setpoint = 4.35833;
     // setpoint = 5.449541;
