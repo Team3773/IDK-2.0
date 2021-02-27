@@ -23,8 +23,8 @@ public class ballAnglerSubsystem extends SubsystemBase {
   private final static WPI_TalonSRX ballAngler = new WPI_TalonSRX(canConstant.ballAnglerPort);
   private DigitalInput forwardLimitSwitch = new DigitalInput(Constants.angleConstants.limitSwitchPort);
   private Encoder aEncoder = new Encoder(
+    angleConstants.angleEncoderPorts[0],
     angleConstants.angleEncoderPorts[1],
-    angleConstants.angleEncoderPorts[2],
     false,
     EncodingType.k4X);
 

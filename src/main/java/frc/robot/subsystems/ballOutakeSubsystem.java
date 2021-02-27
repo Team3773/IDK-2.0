@@ -13,6 +13,8 @@ import frc.robot.Constants.canConstant;
 
 public class ballOutakeSubsystem extends SubsystemBase {
   private final WPI_VictorSPX ballOutake = new WPI_VictorSPX(canConstant.ballOutakePort);
+  private final WPI_VictorSPX ballOutake1 = new WPI_VictorSPX(canConstant.ballOutakePort1);
+
 
   public ballOutakeSubsystem() {
 
@@ -20,6 +22,7 @@ public class ballOutakeSubsystem extends SubsystemBase {
 
   public void setmotor(double speed) {
     ballOutake.set(speed);
+    ballOutake1.set(speed);
   }
 
 }
