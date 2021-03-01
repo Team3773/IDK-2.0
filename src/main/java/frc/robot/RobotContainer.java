@@ -58,6 +58,9 @@ public class RobotContainer {
   private Button button4;
   private Button button5;
   private Button button6;
+  private Button button7;
+  private Button button11;
+  private Button button12;
 
   // public Encoder aEncoder;
   // public double setpoint = 0;
@@ -78,6 +81,8 @@ public class RobotContainer {
 
     driveSubsystem.setDefaultCommand(new DriveManuallyCommand(driveSubsystem, () -> stick.getY(), () -> stick.getX(),
         stick.getRawButtonPressed(driveConstants.reverseButton)));
+
+    beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(3), () -> stick.getTriggerReleased(), () -> stick.getRawButton(1)));
     // anglerSubsystem.setDefaultCommand(new ballAnglerCommand(anglerSubsystem, () -> stick.getThrottle()));
     // beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.get));
     //beltSubsystem = new ballBeltSubsystem();
@@ -101,25 +106,39 @@ public class RobotContainer {
     button4 = new JoystickButton(stick, 4);
     button5 = new JoystickButton(stick, 5);
     button6 = new JoystickButton(stick, 6);
+    button7 = new JoystickButton(stick, 7);
+
+    button11 = new JoystickButton(stick, 11);
+
+    button12 = new JoystickButton(stick, 12);
+    
 
     // bind left bumper to intake motor
-    button2.toggleWhenPressed(new RunCommand(() -> intakeSubsystem.setmotor(1), intakeSubsystem))
-        .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
+    button6.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(.7), intakeSubsystem))
+         .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
 
-    button1.toggleWhenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
-        .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
+    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(.7), outakeSubsystem))
+         .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
+
+    // button11.whenPressed(new RunCommand(() -> anglerSubsystem.setmotor(1), anglerSubsystem));
+
+    button12.whenPressed(new zeroAngler(anglerSubsystem));
+
+    // button1.whenReleased(new RunCommand(() -> beltSubsystem.beltOff(), beltSubsystem), beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(3), () -> stick.getRawButton(1))));
+    // button1.whenPressed(new RunCommand(() -> beltSubsystem.beltForward(), beltSubsystem))
+    //      .whenReleased(new RunCommand(() ->  beltSubsystem.beltOff(), beltSubsystem));
 
     // setpoint = 4.35833;
     // setpoint = 5.449541;
     // setpoint = 6.53945;
     //button?.whenPressed(new ballAnglerCommand(subsystem, setPoint);
-    button3.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 4.35833));
+    button7.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 1.0));//4.35833));
     button4.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 5.449541));
     button5.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 6.53945));
-    button6.whenHeld(new ballBeltCommand(beltSubsystem, true))
-        .whenReleased(new ballBeltCommand(beltSubsystem, false));
+    //  button2.whenPressed(new ballBeltCommand(beltSubsystem, true))
+    //      .whenReleased(new ballBeltCommand(beltSubsystem, false));
 
-    new zeroAngler(this.anglerSubsystem);
+    // new zeroAngler(this.anglerSubsystem);
 
  }
 

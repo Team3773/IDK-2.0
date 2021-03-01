@@ -10,23 +10,24 @@ package frc.robot.subsystems;
 import frc.robot.Constants.canConstant;
 import frc.robot.Constants.sensorConstant;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class ballBeltSubsystem extends SubsystemBase {
 
-  private final WPI_TalonSRX ballBelt = new WPI_TalonSRX(canConstant.ballBeltPort);
+  private final WPI_VictorSPX ballBelt = new WPI_VictorSPX(canConstant.ballBeltPort);
   public DigitalInput lowerBallPresent = new DigitalInput(sensorConstant.lowerBallPresentPort);
   public DigitalInput upperBallPresent = new DigitalInput(sensorConstant.upperBallPresentPort);
   
   public ballBeltSubsystem() {
   }
 
-  public boolean islowerBallPresentSet() {
+  public boolean islowerBallPresent() {
     return !lowerBallPresent.get();
   }
 
-  public boolean isUpperBallPresentSet() {
+  public boolean isUpperBallPresent() {
     return !upperBallPresent.get();
   }
 
@@ -39,11 +40,11 @@ public class ballBeltSubsystem extends SubsystemBase {
   }
 
   public void beltReverse() {
-    ballBelt.set(-0.5);
+    ballBelt.set(0.5);
   }
 
   public void beltForward() {
-    ballBelt.set(0.5);
+    ballBelt.set(-0.5);
   }
 
   public void read() {

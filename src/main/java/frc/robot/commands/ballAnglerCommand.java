@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ballAnglerCommand extends CommandBase {
   private final ballAnglerSubsystem ballAnglerSubsystem;
   private final double setPoint;
-  private final double kP = 0.5;
+  private final double kP = 0.1;
 
   /**
    * Creates a new ballAnglerCommand.
@@ -35,7 +35,7 @@ public class ballAnglerCommand extends CommandBase {
     double outputSpeed = kP * error;
   //double angle = ballAnglerSubsystem.getAngle();
 
-    ballAnglerSubsystem.setmotor(outputSpeed);
+    ballAnglerSubsystem.setmotor(-outputSpeed);
 
   }
 }
