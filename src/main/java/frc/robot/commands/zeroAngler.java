@@ -23,7 +23,7 @@ public class zeroAngler extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.angler.setmotor(-0.5);
+    this.angler.setmotor(-1);
   }
 
   // Called once the command ends or is interrupted.

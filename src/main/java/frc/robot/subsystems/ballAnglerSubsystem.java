@@ -22,21 +22,12 @@ public class ballAnglerSubsystem extends SubsystemBase {
 
   private final static WPI_VictorSPX ballAngler = new WPI_VictorSPX(canConstant.ballAnglerPort);
   private DigitalInput forwardLimitSwitch = new DigitalInput(Constants.angleConstants.limitSwitchPort);
-<<<<<<< HEAD
   private Encoder aEncoder = new Encoder(0, 1);
   // new Encoder(
   //   0,
   //   1);
     //false,
     //EncodingType.k4X
-=======
-  private Encoder aEncoder = new Encoder(
-    angleConstants.angleEncoderPorts[0],
-    angleConstants.angleEncoderPorts[1],
-    false,
-    EncodingType.k4X);
-
->>>>>>> fd0a7b596f1d51955a38719051db898bb7f30577
   // private final double kAngleTick = Math.PI * 2.75 / 360.0;
   // private final double kP = 0.5;
   // private double setpoint = 0;

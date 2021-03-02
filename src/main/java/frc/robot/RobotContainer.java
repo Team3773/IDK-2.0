@@ -24,10 +24,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
-<<<<<<< HEAD
-=======
-
->>>>>>> fd0a7b596f1d51955a38719051db898bb7f30577
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -118,11 +114,10 @@ public class RobotContainer {
     
 
     // bind left bumper to intake motor
-<<<<<<< HEAD
-    button6.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(.7), intakeSubsystem))
+    button6.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(0.7), intakeSubsystem))
          .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
 
-    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(.7), outakeSubsystem))
+    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(0.7), outakeSubsystem))
          .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
 
     // button11.whenPressed(new RunCommand(() -> anglerSubsystem.setmotor(1), anglerSubsystem));
@@ -133,29 +128,15 @@ public class RobotContainer {
     // button1.whenPressed(new RunCommand(() -> beltSubsystem.beltForward(), beltSubsystem))
     //      .whenReleased(new RunCommand(() ->  beltSubsystem.beltOff(), beltSubsystem));
 
-=======
-    button1.toggleWhenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
-    .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
-    
-    button2.toggleWhenPressed(new RunCommand(() -> intakeSubsystem.setmotor(1), intakeSubsystem))
-        .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
-
->>>>>>> fd0a7b596f1d51955a38719051db898bb7f30577
     // setpoint = 4.35833;
     // setpoint = 5.449541;
     // setpoint = 6.53945;
     //button?.whenPressed(new ballAnglerCommand(subsystem, setPoint);
     button7.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 1.0));//4.35833));
-    button4.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 5.449541));
-    button5.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 6.53945));
-<<<<<<< HEAD
+    button4.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 1.1));
+    button5.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 1.2));
     //  button2.whenPressed(new ballBeltCommand(beltSubsystem, true))
     //      .whenReleased(new ballBeltCommand(beltSubsystem, false));
-=======
-
-    button6.whenHeld(new ballBeltCommand(beltSubsystem, true))
-        .whenReleased(new ballBeltCommand(beltSubsystem, false));
->>>>>>> fd0a7b596f1d51955a38719051db898bb7f30577
 
     // new zeroAngler(this.anglerSubsystem);
 

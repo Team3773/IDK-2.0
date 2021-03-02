@@ -52,4 +52,8 @@ public class ballBeltSubsystem extends SubsystemBase {
 
   }
 
+public long getFPGATime() {
+	return 0;
+}
+
 }

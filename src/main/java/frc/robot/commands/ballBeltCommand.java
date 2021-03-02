@@ -14,24 +14,35 @@ public class ballBeltCommand extends CommandBase {
   private BooleanSupplier reverse;
   private BooleanSupplier triggerRelease;
   private BooleanSupplier triggerPressed;
+  
   // private BooleanSupplier lowerBallPresent;
   // private BooleanSupplier upperBallPresent;
   private final ballBeltSubsystem beltSubsystem;
+  //private double beltTimeout;
+
  
   /** Creates a new ballBeltCommand. */
   public ballBeltCommand(ballBeltSubsystem beltSubsystem, BooleanSupplier reverse, BooleanSupplier triggerRelease, BooleanSupplier triggerPressed) {
     System.out.println("init");
+    //double beltTimeout
+    //this.beltTimeout = beltTimeout;
     this.beltSubsystem = beltSubsystem;
     this.triggerRelease = triggerRelease;
     this.triggerPressed = triggerPressed;
     this.reverse = reverse;
+
+
     addRequirements(this.beltSubsystem);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
+
+    // Use addRequirements() here to declare subsystem dependencies.
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    long millisecondsToRun = 2000;
+    long initTime = beltSubsystem.getFPGATime();
+
     System.out.printf("lower ball = %b, upper ball = %b",this.beltSubsystem.islowerBallPresent(), this.beltSubsystem.isUpperBallPresent() );
 
     // if(on.getAsBoolean()){
@@ -46,20 +57,25 @@ public class ballBeltCommand extends CommandBase {
       this.beltSubsystem.beltForward();
      }
 
-
+//Add time to when sensor is broken
     if (this.reverse.getAsBoolean()) {
       this.beltSubsystem.beltReverse();
     }else{
-      if(this.beltSubsystem.isUpperBallPresent()) {
-        // if(this.triggerRelease.getAsBoolean()){
-        //   this.beltSubsystem.beltForward();
-        // }else{
-          this.beltSubsystem.beltOff();
-        // }
-        System.out.println("Ball loaded!");
+      if(beltSubsystem.getFPGATime() - initTime >= millisecondsToRun){
+
+      // if(this.beltSubsystem.isUpperBallPresent()) {
+      //   // if(this.triggerRelease.getAsBoolean()){
+      //   //   this.beltSubsystem.beltForward();
+      //   // }else{
+           this.beltSubsystem.beltOff();
+      //   // }
+         System.out.println("Ball loaded!");
       }else if(this.beltSubsystem.islowerBallPresent()) {
+        while (beltSubsystem.getFPGATime() - initTime <= millisecondsToRun){
+
         this.beltSubsystem.beltForward();
         System.out.println("Ball loading!");
+        }
       }
     }
       
