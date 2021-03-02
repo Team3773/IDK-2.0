@@ -16,19 +16,11 @@ package frc.robot;
  */
 public final class Constants {
     public static final class canConstant {
-<<<<<<< HEAD
         public static final int ballAnglerPort = 9;
-        public static final int ballIntakePort = 3;
+        public static final int ballIntakePort = 1;
+        public static final int ballBeltPort = 3;
         public static final int ballOutakePort = 6;
         public static final int ballOutakePort1 = 2;
-        public static final int ballBeltPort = 1;
-=======
-        public static final int ballAnglerPort = 11;
-        public static final int ballIntakePort = 1;
-        public static final int ballOutakePort = 6;
-        public static final int ballBeltPort = 3;
-		public static final int ballOutakePort1 = 2;
->>>>>>> fd0a7b596f1d51955a38719051db898bb7f30577
     }
 
     public static final class usbConstant {
@@ -37,13 +29,8 @@ public final class Constants {
     }
 
     public static final class sensorConstant {
-<<<<<<< HEAD
-        public static final int lowerBallPresentPort = 5;
-        public static final int upperBallPresentPort = 6;
-=======
         public static final int lowerBallPresentPort = 4;
         public static final int upperBallPresentPort = 1;
->>>>>>> fd0a7b596f1d51955a38719051db898bb7f30577
 
     }
 
@@ -51,30 +38,18 @@ public final class Constants {
         public static final int anglerScalar = 1;
         public static final int[] angleEncoderPorts = new int[] { 0, 1 };
         public static final double setPoint = 0;
-<<<<<<< HEAD
-        public static final int limitSwitchPort = 4;
-=======
         public static final int limitSwitchPort = 2;
->>>>>>> fd0a7b596f1d51955a38719051db898bb7f30577
         public static final double kAngleTick = Math.PI * 2.75 / 360.0;
         //public static final double angleEncoderDistancePerPulse = 1.0 / 256.0 * 6 * Math.PI / 12;;
 
     }
 
     public static final class driveConstants {
-<<<<<<< HEAD
-        public static final int leftMasterPort = 8;
-        public static final int leftSlavePort = 7;
-        public static final int rightMasterPort = 5;
-        public static final int rightSlavePort = 4;
-        public static final int[] driveEncoderPorts = new int[] { 7, 8 };
-=======
         public static final int leftMasterPort = 5;
         public static final int leftSlavePort = 4;
         public static final int rightMasterPort = 8;
         public static final int rightSlavePort = 7;
         public static final int[] driveEncoderPorts = new int[] { 0, 1 };
->>>>>>> fd0a7b596f1d51955a38719051db898bb7f30577
         public static final boolean driveEncoderReversed = false;
         public static final double driveEncoderDistancePerPulse = 1.0 / 256.0;
         public static final double speedScaler = 1;

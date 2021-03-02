@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.function.BooleanSupplier;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ballBeltSubsystem;
 
@@ -14,6 +15,7 @@ public class ballBeltCommand extends CommandBase {
   private BooleanSupplier reverse;
   private BooleanSupplier triggerRelease;
   private BooleanSupplier triggerPressed;
+
   // private BooleanSupplier lowerBallPresent;
   // private BooleanSupplier upperBallPresent;
   private final ballBeltSubsystem beltSubsystem;
@@ -29,7 +31,9 @@ public class ballBeltCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+
+
+// Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     System.out.printf("lower ball = %b, upper ball = %b",this.beltSubsystem.islowerBallPresent(), this.beltSubsystem.isUpperBallPresent() );
@@ -50,17 +54,22 @@ public class ballBeltCommand extends CommandBase {
     if (this.reverse.getAsBoolean()) {
       this.beltSubsystem.beltReverse();
     }else{
+      Timer.delay(1.5);
+//public static void delay(final double seconds) {}
       if(this.beltSubsystem.isUpperBallPresent()) {
+
         // if(this.triggerRelease.getAsBoolean()){
         //   this.beltSubsystem.beltForward();
         // }else{
           this.beltSubsystem.beltOff();
         // }
+      
         System.out.println("Ball loaded!");
       }else if(this.beltSubsystem.islowerBallPresent()) {
         this.beltSubsystem.beltForward();
         System.out.println("Ball loading!");
       }
+      
     }
       
   }
