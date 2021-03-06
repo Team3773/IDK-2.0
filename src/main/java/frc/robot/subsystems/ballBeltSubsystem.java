@@ -19,7 +19,7 @@ public class ballBeltSubsystem extends SubsystemBase {
   private final WPI_VictorSPX ballBelt = new WPI_VictorSPX(canConstant.ballBeltPort);
   public DigitalInput lowerBallPresent = new DigitalInput(sensorConstant.lowerBallPresentPort);
   public DigitalInput upperBallPresent = new DigitalInput(sensorConstant.upperBallPresentPort);
-  
+  double startTime;
   public ballBeltSubsystem() {
   }
 
@@ -31,10 +31,18 @@ public class ballBeltSubsystem extends SubsystemBase {
     return !upperBallPresent.get();
   }
 
+  public boolean islowerBallClear() {
+    return lowerBallPresent.get();
+  }
   public void setmotor(double speed) {
     ballBelt.set(speed);
   }
-
+  public void setStartTime(){
+    startTime = System.currentTimeMillis(); 
+  }
+  // public void startTimeOriginal(){
+  //   startTime;
+  // }
   public void beltOff() {
     ballBelt.set(0);
   }
@@ -55,5 +63,7 @@ public class ballBeltSubsystem extends SubsystemBase {
 public long getFPGATime() {
 	return 0;
 }
+
+
 
 }

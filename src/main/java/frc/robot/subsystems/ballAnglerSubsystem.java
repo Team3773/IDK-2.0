@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
@@ -22,7 +23,7 @@ public class ballAnglerSubsystem extends SubsystemBase {
 
   private final static WPI_VictorSPX ballAngler = new WPI_VictorSPX(canConstant.ballAnglerPort);
   private DigitalInput forwardLimitSwitch = new DigitalInput(Constants.angleConstants.limitSwitchPort);
-  private Encoder aEncoder = new Encoder(0, 1);
+  private Encoder aEncoder = new Encoder(0, 1, false, EncodingType.k4X);
   // new Encoder(
   //   0,
   //   1);

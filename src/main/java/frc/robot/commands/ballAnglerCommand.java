@@ -6,7 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.Constants.angleConstants;
 import frc.robot.subsystems.ballAnglerSubsystem;
-
+import frc.robot.subsystems.manualAnglerSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -26,13 +26,17 @@ public class ballAnglerCommand extends CommandBase {
     addRequirements(this.ballAnglerSubsystem);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+//   public ballAnglerCommand(manualAnglerSubsystem mAnglerSubsystem, Object setPoint2) {
+// }
+
+// Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
     double sensorPosition = ballAnglerSubsystem.getAngle() * angleConstants.kAngleTick;
     double error = setPoint - sensorPosition;
     double outputSpeed = kP * error;
+    System.out.print(ballAnglerSubsystem.getAngle());
   //double angle = ballAnglerSubsystem.getAngle();
 
     ballAnglerSubsystem.setmotor(-outputSpeed);

@@ -17,8 +17,10 @@ import frc.robot.subsystems.ballAnglerSubsystem;
 import frc.robot.subsystems.ballBeltSubsystem;
 import frc.robot.subsystems.ballIntakeSubsystem;
 import frc.robot.subsystems.ballOutakeSubsystem;
+import frc.robot.subsystems.manualAnglerSubsystem;
 import frc.robot.commands.ballAnglerCommand;
 import frc.robot.commands.ballBeltCommand;
+import frc.robot.commands.manualAnglerCommand;
 import frc.robot.commands.zeroAngler;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -39,6 +41,7 @@ public class RobotContainer {
   private final ballBeltSubsystem beltSubsystem = new ballBeltSubsystem();
   private final ballIntakeSubsystem intakeSubsystem = new ballIntakeSubsystem();
   private final ballOutakeSubsystem outakeSubsystem = new ballOutakeSubsystem();
+  private final manualAnglerSubsystem mAnglerSubsystem = new manualAnglerSubsystem();
 
   // Autonomous Commmands
   private final DriveDistance drive1Units = new DriveDistance(driveSubsystem, 1, 0.5, 0);
@@ -81,9 +84,10 @@ public class RobotContainer {
 
     driveSubsystem.setDefaultCommand(new DriveManuallyCommand(driveSubsystem, () -> stick.getY(), () -> stick.getX(),
         stick.getRawButtonPressed(driveConstants.reverseButton)));
-
     beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(3), () -> stick.getTriggerReleased(), () -> stick.getRawButton(1)));
-    // anglerSubsystem.setDefaultCommand(new ballAnglerCommand(anglerSubsystem, () -> stick.getThrottle()));
+    //anglerSubsystem.setDefaultCommand(new ballAnglerCommand(anglerSubsystem, stick.getThrottle()));
+    mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getThrottle()));
+    //mAnglerSubsystem.setDefaultCommand(defaultCommand);
     // beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.get));
     //beltSubsystem = new ballBeltSubsystem();
 
@@ -117,7 +121,7 @@ public class RobotContainer {
     button6.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(0.7), intakeSubsystem))
          .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
 
-    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(0.7), outakeSubsystem))
+    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
          .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
 
     // button11.whenPressed(new RunCommand(() -> anglerSubsystem.setmotor(1), anglerSubsystem));

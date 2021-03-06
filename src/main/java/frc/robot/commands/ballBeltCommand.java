@@ -8,6 +8,7 @@ import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ballBeltSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 
 
 public class ballBeltCommand extends CommandBase {
@@ -40,8 +41,11 @@ public class ballBeltCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    long millisecondsToRun = 2000;
-    long initTime = beltSubsystem.getFPGATime();
+    //double startTime;
+
+
+    // long millisecondsToRun = 2000;
+    // long initTime = beltSubsystem.getFPGATime();
 
     System.out.printf("lower ball = %b, upper ball = %b",this.beltSubsystem.islowerBallPresent(), this.beltSubsystem.isUpperBallPresent() );
 
@@ -50,36 +54,50 @@ public class ballBeltCommand extends CommandBase {
     // }else if(!on.getAsBoolean()){
     //   this.beltSubsystem.beltOff();
     // }
-     if( this.triggerRelease.getAsBoolean()){
-      this.beltSubsystem.beltOff();
-     }
-     if(this.triggerPressed.getAsBoolean()){
-      this.beltSubsystem.beltForward();
-     }
+    // public void setStartTime(){
+    //   startTime = System.currentTimeMillis(); 
+    // }
 
-//Add time to when sensor is broken
     if (this.reverse.getAsBoolean()) {
       this.beltSubsystem.beltReverse();
     }else{
-      if(beltSubsystem.getFPGATime() - initTime >= millisecondsToRun){
+      if( this.triggerRelease.getAsBoolean()){
+        this.beltSubsystem.beltOff();
+      }
+      if(this.triggerPressed.getAsBoolean()){
+        this.beltSubsystem.beltForward();}else{
+          if(this.beltSubsystem.islowerBallPresent()) {
+          this.beltSubsystem.beltForward();
+          //startTime.start();
+          //beltSubsystem.setStartTime();
+          System.out.println("Beam broken!");
+        }
+          if(this.beltSubsystem.islowerBallClear()){
+             //* Timer.delay(0.45);
+            //if (System.currentTimeMillis() - startTime < 0.5) 
+              beltSubsystem.beltOff();  
+              System.out.println("Beam clear!");
+          } //else {
+            //  beltSubsystem.beltOff();  
+            //this.beltSubsystem.beltOff();
+            //System.out.println("Beam clear!");
+        //}
+      }
+    }   
+  }
 
-      // if(this.beltSubsystem.isUpperBallPresent()) {
+  // while (beltSubsystem.getFPGATime() - initTime <= millisecondsToRun){
+
+          //   // }
+        //  System.out.println("Ball loaded!");
+
+
+          //if(this.beltSubsystem.isUpperBallPresent()) {
+
       //   // if(this.triggerRelease.getAsBoolean()){
       //   //   this.beltSubsystem.beltForward();
       //   // }else{
-           this.beltSubsystem.beltOff();
-      //   // }
-         System.out.println("Ball loaded!");
-      }else if(this.beltSubsystem.islowerBallPresent()) {
-        while (beltSubsystem.getFPGATime() - initTime <= millisecondsToRun){
-
-        this.beltSubsystem.beltForward();
-        System.out.println("Ball loading!");
-        }
-      }
-    }
-      
-  }
+              // if(beltSubsystem.getFPGATime() - initTime >= millisecondsToRun){
 
   // Called once the command ends or is interrupted.
   @Override
