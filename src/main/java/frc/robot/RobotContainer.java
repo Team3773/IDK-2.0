@@ -118,7 +118,7 @@ public class RobotContainer {
     
 
     // bind left bumper to intake motor
-    button6.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(0.7), intakeSubsystem))
+    button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(0.7), intakeSubsystem))
          .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
 
     button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
@@ -136,9 +136,9 @@ public class RobotContainer {
     // setpoint = 5.449541;
     // setpoint = 6.53945;
     //button?.whenPressed(new ballAnglerCommand(subsystem, setPoint);
-    button7.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 1.0));//4.35833));
-    button4.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 1.1));
-    button5.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 1.2));
+    //button7.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 1.0));//4.35833));
+    //button4.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 1.1));
+    //button5.whenPressed(new ballAnglerCommand(this.anglerSubsystem, 1.2));
     //  button2.whenPressed(new ballBeltCommand(beltSubsystem, true))
     //      .whenReleased(new ballBeltCommand(beltSubsystem, false));
 
