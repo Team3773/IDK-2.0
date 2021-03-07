@@ -11,10 +11,18 @@ import frc.robot.subsystems.ballBeltSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 
 
+
 public class ballBeltCommand extends CommandBase {
   private BooleanSupplier reverse;
   private BooleanSupplier triggerRelease;
   private BooleanSupplier triggerPressed;
+  // private double beltstartTime = Timer.getFPGATimestamp();
+  Timer timer = new Timer();
+
+
+  //private double beltelapsedTime;
+
+
   
   // private BooleanSupplier lowerBallPresent;
   // private BooleanSupplier upperBallPresent;
@@ -41,6 +49,8 @@ public class ballBeltCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+  //beltelapsedTime = System.currentTimeMillis() - beltstartTime;
+
     //double startTime;
 
 
@@ -67,16 +77,20 @@ public class ballBeltCommand extends CommandBase {
       if(this.triggerPressed.getAsBoolean()){
         this.beltSubsystem.beltForward();}else{
           if(this.beltSubsystem.islowerBallPresent()) {
-          this.beltSubsystem.beltForward();
-          //startTime.start();
-          //beltSubsystem.setStartTime();
           System.out.println("Beam broken!");
+          timer.start();
+            if(timer.get() < 3){
+            this.beltSubsystem.beltForward();
+            }
+
+         // beltstartTime.start();
         }
           if(this.beltSubsystem.islowerBallClear()){
              //* Timer.delay(0.45);
-            //if (System.currentTimeMillis() - startTime < 0.5) 
+          //  if(elsapsedTime < 0.5){ 
               beltSubsystem.beltOff();  
               System.out.println("Beam clear!");
+          //  }
           } //else {
             //  beltSubsystem.beltOff();  
             //this.beltSubsystem.beltOff();
