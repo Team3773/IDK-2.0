@@ -24,15 +24,29 @@ public class manualAnglerSubsystem extends SubsystemBase {
   public manualAnglerSubsystem() {
 }
 
-	public void manualAnglerCommand(Double speed) {
+	// public void manualAnglerCommand(boolean speed) {
       
-      ballAngler.set(speed); 
-  }
+  //     ballAngler.set(speed); 
+  // }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+public void angleForward() {
+  ballAngler.set(0.5); 
+
+}
+
+public void angleBackward() {
+  ballAngler.set(-0.5); 
+}
+
+public void stopMotor() {
+  ballAngler.set(0); 
+
+}
 
 
 }

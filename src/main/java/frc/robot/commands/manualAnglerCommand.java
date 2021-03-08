@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -16,13 +17,21 @@ import frc.robot.subsystems.manualAnglerSubsystem;
 public class manualAnglerCommand extends CommandBase {
   private final manualAnglerSubsystem manualAnglerSubsystem;
   private final ballAnglerSubsystem ballAnglerSubsystem;
-  private final DoubleSupplier speed;
+  private final BooleanSupplier angleForward;
+  private final BooleanSupplier angleForwardReleased;
+  private final BooleanSupplier angleBackward;
+  private final BooleanSupplier angleBackwardReleased;
+
+
 
   /** Creates a new manualAnglerCommand. */
-  public manualAnglerCommand(manualAnglerSubsystem manualAnglerSubsystem, ballAnglerSubsystem ballAnglerSubsystem, DoubleSupplier speed) {
+  public manualAnglerCommand(manualAnglerSubsystem manualAnglerSubsystem, ballAnglerSubsystem ballAnglerSubsystem, BooleanSupplier angleForward, BooleanSupplier angleBackward, BooleanSupplier angleForwardReleased, BooleanSupplier angleBackwardReleased) {
     this.manualAnglerSubsystem = manualAnglerSubsystem;
-    this.speed = speed;
+    this.angleForward = angleForward;
+    this.angleBackward = angleBackward;
     this.ballAnglerSubsystem = ballAnglerSubsystem;
+    this.angleForwardReleased = angleForwardReleased;
+    this.angleBackwardReleased = angleBackwardReleased;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.manualAnglerSubsystem);
     addRequirements(this.ballAnglerSubsystem);
@@ -32,22 +41,45 @@ public class manualAnglerCommand extends CommandBase {
 //  public manualAnglerCommand(frc.robot.subsystems.manualAnglerSubsystem mAnglerSubsystem, Object speed2) {
 //}
 
-
-
 @Override
   public void execute() {
-    double tempSpeed = speed.getAsDouble();
-
-     if(this.ballAnglerSubsystem.getLimitSwitch()){
-       this.ballAnglerSubsystem.resetDistance();
-       if(tempSpeed < 0){
-       tempSpeed = 0;
-       }
-      // this.ballAnglerSubsystem.stopMotor();
-     }
-    manualAnglerSubsystem.manualAnglerCommand(tempSpeed);
+    if(this.angleBackwardReleased.getAsBoolean()){
+      this.manualAnglerSubsystem.stopMotor();
+    }
+    if(this.angleForwardReleased.getAsBoolean()){
+      this.manualAnglerSubsystem.stopMotor();
+    }
+    if (this.angleForward.getAsBoolean()) {
+      this.manualAnglerSubsystem.angleForward();
+    }else{
+    if(this.ballAnglerSubsystem.getLimitSwitch()){
+      this.ballAnglerSubsystem.resetDistance();
+      this.manualAnglerSubsystem.stopMotor();
+   }else{
+    if(this.angleBackward.getAsBoolean()){
+      this.manualAnglerSubsystem.angleBackward();
+    }
+   }
+   /*    if (this.angleForward.getAsBoolean()) {
+      this.manualAnglerSubsystem.angleForward();
+    }else{
+    if(this.ballAnglerSubsystem.getLimitSwitch()){
+      this.ballAnglerSubsystem.resetDistance();
+      this.manualAnglerSubsystem.stopMotor();
+   }else{
+    if(this.angleBackward.getAsBoolean()){
+      this.manualAnglerSubsystem.angleBackward();
+    }
+   }*/
+    //    if(tempSpeed = 0){
+    //    tempSpeed = 0;
+    //    }
+    //   // this.ballAnglerSubsystem.stopMotor();
+    //  }
+    // manualAnglerSubsystem.manualAnglerCommand(tempSpeed);
 
     //Robot.manualAnglerSubsystem.setmotor()
    
   }
+}
 }

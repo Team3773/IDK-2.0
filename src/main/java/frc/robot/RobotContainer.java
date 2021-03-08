@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -64,6 +65,16 @@ public class RobotContainer {
   private Button button7;
   private Button button11;
   private Button button12;
+  private POVButton angleUP;
+  private POVButton angledown;
+  private double axisValue = stick.getRawAxis(5);
+
+  // private POVButton angleUPovButton;
+  // private POVButton anangleDownPovButton;
+  // private double axisValue = j.getRawAxis(1);
+
+
+
 
   // public Encoder aEncoder;
   // public double setpoint = 0;
@@ -84,9 +95,13 @@ public class RobotContainer {
 
     driveSubsystem.setDefaultCommand(new DriveManuallyCommand(driveSubsystem, () -> stick.getY(), () -> stick.getX(),
         stick.getRawButtonPressed(driveConstants.reverseButton)));
-    beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(3), () -> stick.getTriggerReleased(), () -> stick.getRawButton(1)));
+    beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(6), () -> stick.getTriggerReleased(), () -> stick.getRawButton(1)));
     //anglerSubsystem.setDefaultCommand(new ballAnglerCommand(anglerSubsystem, stick.getThrottle()));
-    mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getThrottle()));
+    //**//mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getThrottle()));
+    mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
+    //manualAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(manualAnglerSubsystem, ballAnglerSubsystem, angleForward, angleBackward, angleForwardReleased, angleBackwardReleased))
+    //    mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButtonPressed(3), () -> stick.getRawButtonPressed(5)));
+    //mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(manualAnglerSubsystem, ballAnglerSubsystem, angleForward, angleBackward)
     //mAnglerSubsystem.setDefaultCommand(defaultCommand);
     // beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.get));
     //beltSubsystem = new ballBeltSubsystem();
@@ -115,6 +130,10 @@ public class RobotContainer {
     button11 = new JoystickButton(stick, 11);
 
     button12 = new JoystickButton(stick, 12);
+
+    //Joystick anglerAxisUp = new axis
+    //Joystick anglerAxisDown = new Joystick(8);
+    //POVButton = new JoystickButton(stick, 2);
     
 
     // bind left bumper to intake motor
