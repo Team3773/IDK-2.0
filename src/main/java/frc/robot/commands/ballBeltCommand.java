@@ -15,73 +15,68 @@ public class ballBeltCommand extends CommandBase {
   private BooleanSupplier reverse;
   private BooleanSupplier triggerRelease;
   private BooleanSupplier triggerPressed;
-  
-  // private BooleanSupplier lowerBallPresent;
-  // private BooleanSupplier upperBallPresent;
   private final ballBeltSubsystem beltSubsystem;
-  //private double beltTimeout;
+  private Timer ballTimer = new Timer();
+  private Timer triggerTimer = new Timer();
 
  
   /** Creates a new ballBeltCommand. */
   public ballBeltCommand(ballBeltSubsystem beltSubsystem, BooleanSupplier reverse, BooleanSupplier triggerRelease, BooleanSupplier triggerPressed) {
     System.out.println("init");
-    //double beltTimeout
-    //this.beltTimeout = beltTimeout;
     this.beltSubsystem = beltSubsystem;
     this.triggerRelease = triggerRelease;
     this.triggerPressed = triggerPressed;
     this.reverse = reverse;
 
 
+
     addRequirements(this.beltSubsystem);
   }
-
-    // Use addRequirements() here to declare subsystem dependencies.
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //double startTime;
-
-
-    // long millisecondsToRun = 2000;
-    // long initTime = beltSubsystem.getFPGATime();
 
     System.out.printf("lower ball = %b, upper ball = %b",this.beltSubsystem.islowerBallPresent(), this.beltSubsystem.isUpperBallPresent() );
-
-    // if(on.getAsBoolean()){
-    //   this.beltSubsystem.beltForward();
-    // }else if(!on.getAsBoolean()){
-    //   this.beltSubsystem.beltOff();
-    // }
-    // public void setStartTime(){
-    //   startTime = System.currentTimeMillis(); 
-    // }
 
     if (this.reverse.getAsBoolean()) {
       this.beltSubsystem.beltReverse();
     }else{
       if( this.triggerRelease.getAsBoolean()){
+        if(triggerTimer.get() > 3){
         this.beltSubsystem.beltOff();
+        triggerTimer.stop();
+        triggerTimer.reset();
+        }
       }
       if(this.triggerPressed.getAsBoolean()){
-        this.beltSubsystem.beltForward();}else{
+        triggerTimer.start();
+        if(triggerTimer.get() <= 3){
+        this.beltSubsystem.beltForward();
+        }
+      }else{
           if(this.beltSubsystem.islowerBallPresent()) {
-          this.beltSubsystem.beltForward();
-          //startTime.start();
-          //beltSubsystem.setStartTime();
-          System.out.println("Beam broken!");
+            ballTimer.start();
+            System.out.println(ballTimer.get());
+            System.out.println("Beam broken!");
+             if(ballTimer.get() <= 0.59){
+             this.beltSubsystem.beltForward();
+            }
+          //  timer.stop();
         }
           if(this.beltSubsystem.islowerBallClear()){
-             //* Timer.delay(0.45);
-            //if (System.currentTimeMillis() - startTime < 0.5) 
-              beltSubsystem.beltOff();  
-              System.out.println("Beam clear!");
-          } //else {
-            //  beltSubsystem.beltOff();  
-            //this.beltSubsystem.beltOff();
-            //System.out.println("Beam clear!");
-        //}
+            System.out.println("Beam clear!");
+            // timer.start();
+            //   System.out.println(timer.get());
+            //   if(timer.get() < 3){
+              if (ballTimer.get() > 0.59){
+              beltSubsystem.beltOff();
+              ballTimer.stop();
+              ballTimer.reset(); 
+              }
+            //  }
+           // timer.reset(); 
+          }
       }
     }   
   }
