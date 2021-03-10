@@ -42,16 +42,17 @@ public class ballBeltCommand extends CommandBase {
     if (this.reverse.getAsBoolean()) {
       this.beltSubsystem.beltReverse();
     }else{
-      if( this.triggerRelease.getAsBoolean()){
-        if(triggerTimer.get() > 3){
+      if(this.triggerRelease.getAsBoolean()){
+      //  if(triggerTimer.get() >= 4){
+          triggerTimer.stop();
+          triggerTimer.reset();
+      //  if(triggerTimer.get() >= 4){
         this.beltSubsystem.beltOff();
-        triggerTimer.stop();
-        triggerTimer.reset();
-        }
+      //  }
       }
       if(this.triggerPressed.getAsBoolean()){
         triggerTimer.start();
-        if(triggerTimer.get() <= 3){
+        if(triggerTimer.get() > 0.65){
         this.beltSubsystem.beltForward();
         }
       }else{

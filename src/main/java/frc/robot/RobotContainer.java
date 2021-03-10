@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -68,6 +72,10 @@ public class RobotContainer {
   private POVButton angleUP;
   private POVButton angledown;
   private double axisValue = stick.getRawAxis(5);
+  private UsbCamera intakeCamera;
+  private UsbCamera outakeCamera;
+  private NetworkTableEntry cameraSelection;
+
 
   // private POVButton angleUPovButton;
   // private POVButton anangleDownPovButton;
@@ -131,6 +139,11 @@ public class RobotContainer {
 
     button12 = new JoystickButton(stick, 12);
 
+    intakeCamera = CameraServer.getInstance().startAutomaticCapture(0);
+    outakeCamera = CameraServer.getInstance().startAutomaticCapture(1);
+    cameraSelection = NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection");
+
+
     //Joystick anglerAxisUp = new axis
     //Joystick anglerAxisDown = new Joystick(8);
     //POVButton = new JoystickButton(stick, 2);
@@ -142,6 +155,15 @@ public class RobotContainer {
 
     button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
          .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
+
+    if(stick.getRawButtonPressed(4)){
+      System.out.println("Setting Inake Camera");
+      cameraSelection.setString(intakeCamera.getName());
+    }else if(stick.getRawButtonReleased(4)){
+      System.out.println("Setting outakeCamera");
+      cameraSelection.setString(outakeCamera.getName());
+    }
+  
 
     // button11.whenPressed(new RunCommand(() -> anglerSubsystem.setmotor(1), anglerSubsystem));
 
