@@ -54,6 +54,16 @@ public final class Constants {
         public static final double driveEncoderDistancePerPulse = 1.0 / 256.0;
         public static final double speedScaler = 1;
         public static final int reverseButton = 1;
+
+                //kp The proportional coefficient.
+                public static final double kTurnP = 1;
+                //ki The integral coefficient.
+                public static final double kTurnI = 0;
+                //kd The derivative coefficient.
+                public static final double kTurnD = 0;
+        
+                public static final double turnToleranceDeg = 2;
+                public static final double turnRateToleranceDegPerS = 10; // degrees per second
     }
 
 }

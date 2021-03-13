@@ -11,9 +11,13 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.Constants.driveConstants;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 public class DriveSubsystem extends SubsystemBase {
+
+  private final Gyro gyro = new ADXRS450_Gyro();
 
   private final SpeedControllerGroup leftSide = 
     new SpeedControllerGroup(
@@ -55,5 +59,21 @@ public class DriveSubsystem extends SubsystemBase {
   }
   public void stopMotors(){
     drive.arcadeDrive(0, 0);
+  }
+
+   //reset gyro angle to 0
+   public void resetAngle(){
+    this.gyro.reset();
+  }
+
+  //get gyro angle
+  public double getCurrentHeading(){
+    return gyro.getAngle();
+    //return Math.IEEEremainder(gyro.getAngle(), 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+  }
+
+  //get turn rate of robot in degrees/second
+  public double getTurnRate(){
+    return gyro.getRate();
   }
 }

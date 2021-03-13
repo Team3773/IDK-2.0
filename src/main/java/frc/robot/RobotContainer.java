@@ -16,6 +16,7 @@ import frc.robot.Constants.driveConstants;
 import frc.robot.Constants.usbConstant;
 import frc.robot.commands.DriveDistance;
 import frc.robot.commands.DriveManuallyCommand;
+import frc.robot.commands.TurnToAngle;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ballAnglerSubsystem;
 import frc.robot.subsystems.ballBeltSubsystem;
@@ -67,6 +68,7 @@ public class RobotContainer {
   private Button button5;
   private Button button6;
   private Button button7;
+  private Button button8;
   private Button button11;
   private Button button12;
   private POVButton angleUP;
@@ -138,6 +140,7 @@ public class RobotContainer {
     button5 = new JoystickButton(stick, 5);
     button6 = new JoystickButton(stick, 6);
     button7 = new JoystickButton(stick, 7);
+    button8 = new JoystickButton(stick, 8);
 
     button11 = new JoystickButton(stick, 11);
 
@@ -177,6 +180,8 @@ public class RobotContainer {
     // button1.whenPressed(new RunCommand(() -> beltSubsystem.beltForward(), beltSubsystem))
     //      .whenReleased(new RunCommand(() ->  beltSubsystem.beltOff(), beltSubsystem));
     button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 1.0));
+
+    button8.whenPressed(new TurnToAngle(driveSubsystem, 25).withTimeout(5));
     // setpoint = 4.35833;
     // setpoint = 5.449541;
     // setpoint = 6.53945;
