@@ -14,6 +14,8 @@ public class ballAnglerCommand extends CommandBase {
   private final double setPoint;
   private final double kP = 0.1;
 
+  private double sensorPosition;
+
   /**
    * Creates a new ballAnglerCommand.
    *
@@ -28,14 +30,20 @@ public class ballAnglerCommand extends CommandBase {
 // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    double sensorPosition = ballAnglerSubsystem.getAngle() * angleConstants.kAngleTick;
+    this.sensorPosition = ballAnglerSubsystem.getAngle() * angleConstants.kAngleTick;
     double error = setPoint - sensorPosition;
     double outputSpeed = kP * error;
     System.out.print(ballAnglerSubsystem.getAngle());
 
     ballAnglerSubsystem.setmotor(-outputSpeed);
 
+  }
+
+  @Override
+  public boolean isFinished(){
+
+      return sensorPosition == setPoint;
+  
   }
 }
 

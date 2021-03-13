@@ -106,7 +106,11 @@ public class RobotContainer {
     beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(6), () -> stick.getTriggerReleased(), () -> stick.getRawButton(1)));
     //anglerSubsystem.setDefaultCommand(new ballAnglerCommand(anglerSubsystem, stick.getThrottle()));
     //**//mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getThrottle()));
-    mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
+   
+   //manual version
+    // mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
+   
+   
     //manualAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(manualAnglerSubsystem, ballAnglerSubsystem, angleForward, angleBackward, angleForwardReleased, angleBackwardReleased))
     //    mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButtonPressed(3), () -> stick.getRawButtonPressed(5)));
     //mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(manualAnglerSubsystem, ballAnglerSubsystem, angleForward, angleBackward)
@@ -172,7 +176,7 @@ public class RobotContainer {
     // button1.whenReleased(new RunCommand(() -> beltSubsystem.beltOff(), beltSubsystem), beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(3), () -> stick.getRawButton(1))));
     // button1.whenPressed(new RunCommand(() -> beltSubsystem.beltForward(), beltSubsystem))
     //      .whenReleased(new RunCommand(() ->  beltSubsystem.beltOff(), beltSubsystem));
-
+    button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 1.0));
     // setpoint = 4.35833;
     // setpoint = 5.449541;
     // setpoint = 6.53945;

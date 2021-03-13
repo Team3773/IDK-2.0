@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+//import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
@@ -23,7 +23,7 @@ public class ballAnglerSubsystem extends SubsystemBase {
 
   private final static WPI_VictorSPX ballAngler = new WPI_VictorSPX(canConstant.ballAnglerPort);
   private DigitalInput forwardLimitSwitch = new DigitalInput(Constants.angleConstants.limitSwitchPort);
-  private Encoder aEncoder = new Encoder(0, 1, false, EncodingType.k4X);
+  private Encoder aEncoder = new Encoder(Constants.angleConstants.angleEncoderPorts[0],Constants.angleConstants.angleEncoderPorts[1]);
   // new Encoder(
   //   0,
   //   1);
@@ -43,7 +43,14 @@ public class ballAnglerSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Encoder", aEncoder.get());
     System.out.print(aEncoder.get());
   }
-
+  public void angleThat(){
+      if(aEncoder.getDistance() < 5) {
+      ballAngler.set(.5);
+      } else {
+      ballAngler.set(0);
+      }
+  }
+    
   public double getAngle() {
     return aEncoder.get();
   }
