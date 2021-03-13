@@ -179,7 +179,7 @@ public class RobotContainer {
     // button1.whenReleased(new RunCommand(() -> beltSubsystem.beltOff(), beltSubsystem), beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(3), () -> stick.getRawButton(1))));
     // button1.whenPressed(new RunCommand(() -> beltSubsystem.beltForward(), beltSubsystem))
     //      .whenReleased(new RunCommand(() ->  beltSubsystem.beltOff(), beltSubsystem));
-    button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 1.0));
+    button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 5.0));
 
     button8.whenPressed(new TurnToAngle(driveSubsystem, 25).withTimeout(5));
     // setpoint = 4.35833;

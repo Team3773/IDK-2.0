@@ -35,7 +35,7 @@ public class ballAnglerCommand extends CommandBase {
     double outputSpeed = kP * error;
     System.out.print(ballAnglerSubsystem.getAngle());
 
-    ballAnglerSubsystem.setmotor(-outputSpeed);
+    ballAnglerSubsystem.setmotor(outputSpeed);
 
   }
 
