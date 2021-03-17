@@ -39,7 +39,7 @@ public final class Constants {
         public static final int[] angleEncoderPorts = new int[] { 0, 1 };
         public static final double setPoint = 0;
         public static final int limitSwitchPort = 4;
-        public static final double kAngleTick = Math.PI * 2.75 / 7;//360.0;
+        public static final double kAngleTick = Math.PI * 2.75 / 360;//360.0;
         //public static final double angleEncoderDistancePerPulse = 1.0 / 256.0 * 6 * Math.PI / 12;;
 
     }

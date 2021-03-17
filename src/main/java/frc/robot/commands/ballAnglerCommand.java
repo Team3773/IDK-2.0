@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.Constants.angleConstants;
 import frc.robot.subsystems.ballAnglerSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -30,6 +31,8 @@ public class ballAnglerCommand extends CommandBase {
 // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    SmartDashboard.putNumber("enc", ballAnglerSubsystem.getAngle());
     this.sensorPosition = ballAnglerSubsystem.getAngle() * angleConstants.kAngleTick;
     double error = setPoint - sensorPosition;
     double outputSpeed = kP * error;

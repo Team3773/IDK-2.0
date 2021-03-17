@@ -54,7 +54,7 @@ public class RobotContainer {
 
   private final DriveDistance drive5Units = new DriveDistance(driveSubsystem, 5, 0.5, 0);
 
-  private final DriveDistance drive10Units = new DriveDistance(driveSubsystem, 10, 0.5, 0);
+  private final DriveDistance drive100Units = new DriveDistance(driveSubsystem, 100, 0.5, 0);
 
   // A chooser for autonomous commands
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -69,6 +69,8 @@ public class RobotContainer {
   private Button button6;
   private Button button7;
   private Button button8;
+  private Button button10;
+  private Button button9;
   private Button button11;
   private Button button12;
   private POVButton angleUP;
@@ -122,7 +124,7 @@ public class RobotContainer {
 
     chooser.setDefaultOption("drive 1 units?", drive1Units);
     chooser.addOption("drive 5 units", drive5Units);
-    chooser.addOption("drive 10 units", drive10Units);
+    chooser.addOption("drive 100 units", drive100Units);
     Shuffleboard.getTab("Autonomous").add(chooser);
   }
 
@@ -141,6 +143,8 @@ public class RobotContainer {
     button6 = new JoystickButton(stick, 6);
     button7 = new JoystickButton(stick, 7);
     button8 = new JoystickButton(stick, 8);
+    button9 = new JoystickButton(stick, 9);
+    button10 = new JoystickButton(stick, 10);
 
     button11 = new JoystickButton(stick, 11);
 
@@ -179,9 +183,13 @@ public class RobotContainer {
     // button1.whenReleased(new RunCommand(() -> beltSubsystem.beltOff(), beltSubsystem), beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(3), () -> stick.getRawButton(1))));
     // button1.whenPressed(new RunCommand(() -> beltSubsystem.beltForward(), beltSubsystem))
     //      .whenReleased(new RunCommand(() ->  beltSubsystem.beltOff(), beltSubsystem));
-    button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 5.0));
+    button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 6.8));
+    button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.8));
+    button11.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.9));
 
-    button8.whenPressed(new TurnToAngle(driveSubsystem, 25).withTimeout(5));
+
+
+    button7.whenPressed(new TurnToAngle(driveSubsystem, 25).withTimeout(5));
     // setpoint = 4.35833;
     // setpoint = 5.449541;
     // setpoint = 6.53945;
