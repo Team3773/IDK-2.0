@@ -62,11 +62,22 @@ public class ballAnglerSubsystem extends SubsystemBase {
 
   public void stopMotor() {
     ballAngler.set(0);
+    //ahhhh
+  }
+  public void angleForward() {
+    ballAngler.set(0.5); 
+  
+  }
+  
+  public void angleBackward() {
+    ballAngler.set(-0.5); 
   }
 
   public void setmotor(double speed) {
     ballAngler.set(speed);
+    //ahhh
   }
+  
 
   public boolean getLimitSwitch(){
     return this.forwardLimitSwitch.get();

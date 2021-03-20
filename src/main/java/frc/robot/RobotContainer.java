@@ -112,8 +112,9 @@ public class RobotContainer {
     //**//mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getThrottle()));
    
    //manual version
-    // mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
-   
+  mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
+//  mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
+
    
     //manualAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(manualAnglerSubsystem, ballAnglerSubsystem, angleForward, angleBackward, angleForwardReleased, angleBackwardReleased))
     //    mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButtonPressed(3), () -> stick.getRawButtonPressed(5)));

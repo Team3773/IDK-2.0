@@ -21,8 +21,7 @@ public class manualAnglerSubsystem extends SubsystemBase {
 
   /** Creates a new manualAngler. */
 
-  public manualAnglerSubsystem() {
-}
+  public manualAnglerSubsystem() {}
 
 	// public void manualAnglerCommand(boolean speed) {
       
@@ -34,19 +33,19 @@ public class manualAnglerSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-public void angleForward() {
-  ballAngler.set(0.5); 
+// public void angleForward() {
+//   ballAngler.set(0.5); 
 
-}
+// }
 
-public void angleBackward() {
-  ballAngler.set(-0.5); 
-}
+// public void angleBackward() {
+//   ballAngler.set(-0.5); 
+// }
 
-public void stopMotor() {
-  ballAngler.set(0); 
+// public void stopMotor() {
+//   ballAngler.set(0); 
 
-}
+// }
 
 
 }

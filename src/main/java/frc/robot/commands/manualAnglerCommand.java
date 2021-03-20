@@ -12,24 +12,24 @@ import frc.robot.subsystems.manualAnglerSubsystem;
 
 
 public class manualAnglerCommand extends CommandBase {
-  private final manualAnglerSubsystem manualAnglerSubsystem;
+  // private final manualAnglerSubsystem manualAnglerSubsystem;
   private final ballAnglerSubsystem ballAnglerSubsystem;
   private final BooleanSupplier angleForward;
   private final BooleanSupplier angleForwardReleased;
   private final BooleanSupplier angleBackward;
   private final BooleanSupplier angleBackwardReleased;
 
-
+//manualAnglerSubsystem manualAnglerSubsystem
   /** Creates a new manualAnglerCommand. */
-  public manualAnglerCommand(manualAnglerSubsystem manualAnglerSubsystem, ballAnglerSubsystem ballAnglerSubsystem, BooleanSupplier angleForward, BooleanSupplier angleBackward, BooleanSupplier angleForwardReleased, BooleanSupplier angleBackwardReleased) {
-    this.manualAnglerSubsystem = manualAnglerSubsystem;
+  public manualAnglerCommand(ballAnglerSubsystem ballAnglerSubsystem, BooleanSupplier angleForward, BooleanSupplier angleBackward, BooleanSupplier angleForwardReleased, BooleanSupplier angleBackwardReleased) {
+    // this.manualAnglerSubsystem = manualAnglerSubsystem;
     this.angleForward = angleForward;
     this.angleBackward = angleBackward;
     this.ballAnglerSubsystem = ballAnglerSubsystem;
     this.angleForwardReleased = angleForwardReleased;
     this.angleBackwardReleased = angleBackwardReleased;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.manualAnglerSubsystem);
+    // addRequirements(this.manualAnglerSubsystem);
     addRequirements(this.ballAnglerSubsystem);
 
   }
@@ -40,20 +40,20 @@ public class manualAnglerCommand extends CommandBase {
 @Override
   public void execute() {
     if(this.angleBackwardReleased.getAsBoolean()){
-      this.manualAnglerSubsystem.stopMotor();
+      this.ballAnglerSubsystem.stopMotor();
     }
     if(this.angleForwardReleased.getAsBoolean()){
-      this.manualAnglerSubsystem.stopMotor();
+      this.ballAnglerSubsystem.stopMotor();
     }
     if (this.angleForward.getAsBoolean()) {
-      this.manualAnglerSubsystem.angleForward();
+      this.ballAnglerSubsystem.angleForward();
     }else{
     if(this.ballAnglerSubsystem.getLimitSwitch()){
       this.ballAnglerSubsystem.resetDistance();
-      this.manualAnglerSubsystem.stopMotor();
+      this.ballAnglerSubsystem.stopMotor();
    }else{
     if(this.angleBackward.getAsBoolean()){
-      this.manualAnglerSubsystem.angleBackward();
+      this.ballAnglerSubsystem.angleBackward();
     }
    }
    /*    if (this.angleForward.getAsBoolean()) {
