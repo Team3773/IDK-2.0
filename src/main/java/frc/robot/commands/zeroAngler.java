@@ -10,8 +10,12 @@ import frc.robot.subsystems.ballAnglerSubsystem;
 public class zeroAngler extends CommandBase {
   /** Creates a new zeroAngler. */
   private final ballAnglerSubsystem angler;
-  public zeroAngler(ballAnglerSubsystem angler) {
+  // private final double calibrate;
+  //  public zeroAngler(ballAnglerSubsystem angler, int i) {
+
+   public zeroAngler(ballAnglerSubsystem angler) {
     this.angler = angler;
+    // this.calibrate = i;
     addRequirements(this.angler);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -23,7 +27,8 @@ public class zeroAngler extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.angler.setmotor(-1);
+     this.angler.setmotor(-1);
+    // this.angler.setmotor(calibrate);
   }
 
   // Called once the command ends or is interrupted.
@@ -41,6 +46,5 @@ public class zeroAngler extends CommandBase {
     }else{
       return false;
     }
-    
   }
 }

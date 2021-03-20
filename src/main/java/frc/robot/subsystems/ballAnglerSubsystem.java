@@ -24,6 +24,7 @@ public class ballAnglerSubsystem extends SubsystemBase {
   private final static WPI_VictorSPX ballAngler = new WPI_VictorSPX(canConstant.ballAnglerPort);
   private DigitalInput forwardLimitSwitch = new DigitalInput(Constants.angleConstants.limitSwitchPort);
   private Encoder aEncoder = new Encoder(0,1);
+  int motorSpeed = 0;
   // new Encoder(
   //   0,
   //   1);
@@ -57,26 +58,28 @@ public class ballAnglerSubsystem extends SubsystemBase {
 
   public void resetDistance() {
     aEncoder.reset();
-    //ahhhhh
   }
 
   public void stopMotor() {
     ballAngler.set(0);
-    //ahhhh
   }
   
   public void angleForward() {
-    ballAngler.set(0.5); 
+    ballAngler.set(0.5);
+    motorSpeed = 1;
   
   }
   
   public void angleBackward() {
     ballAngler.set(-0.5); 
+    motorSpeed = 1;
   }
 
   public void setmotor(double speed) {
+    if (motorSpeed != 1){
     ballAngler.set(speed);
-    //ahhh
+    }
+
   }
   
 

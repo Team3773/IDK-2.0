@@ -114,7 +114,9 @@ public class RobotContainer {
     //**//mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getThrottle()));
    
    //manual version
-  mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
+  //  mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
+
+  //** */ mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
 //  mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
 
    
@@ -183,15 +185,31 @@ public class RobotContainer {
     // button1.whenReleased(new RunCommand(() -> beltSubsystem.beltOff(), beltSubsystem), beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(3), () -> stick.getRawButton(1))));
     // button1.whenPressed(new RunCommand(() -> beltSubsystem.beltForward(), beltSubsystem))
     //      .whenReleased(new RunCommand(() ->  beltSubsystem.beltOff(), beltSubsystem));
+    //  mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getRawButton(5), () -> stick.getRawButton(3), () -> stick.getRawButtonReleased(5), () -> stick.getRawButtonReleased(3)));
+
     button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
     .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
     button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(0.7), intakeSubsystem))
     .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
+    button3.whenPressed(new RunCommand( () -> anglerSubsystem.setmotor(-0.5), anglerSubsystem))
+    .whenReleased(new RunCommand( () -> anglerSubsystem.setmotor(0), anglerSubsystem));
+    button5.whenPressed(new RunCommand( () -> anglerSubsystem.setmotor(0.5), anglerSubsystem))
+    .whenReleased(new RunCommand( () -> anglerSubsystem.setmotor(0), anglerSubsystem));
+    // button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 6.8));
+    // button8.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.8));
+    // button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.9));
     button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 6.8));
-    button8.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.8));
-    button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.9));
+    button8.whenPressed(new ballAnglerCommand(anglerSubsystem, 19.0));
+    button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 29.2));
+
     button11.whenPressed(new TurnToAngle(driveSubsystem, 25).withTimeout(5));
     button12.whenPressed(new zeroAngler(anglerSubsystem));
+    // button12.whenPressed(new RunCommand( () -> anglerSubsystem.setmotor(-1)));
+    //  button12.whenPressed(new zeroAngler(anglerSubsystem.setmotor(-1)));
+    //  button12.whenPressed(new zeroAngler(anglerSubsystem, -1));
+    //  buton12.whenPressed(new zeroAngler(anglerSubsystem, -1));
+
+    
 
     // setpoint = 4.35833;
     // setpoint = 5.449541;

@@ -40,6 +40,12 @@ public class ballAnglerCommand extends CommandBase {
 
     ballAnglerSubsystem.setmotor(outputSpeed);
 
+    if(this.ballAnglerSubsystem.getLimitSwitch()){
+      this.ballAnglerSubsystem.resetDistance();
+      System.out.print("0");
+      this.ballAnglerSubsystem.stopMotor();
+    }
+
   }
 
   @Override

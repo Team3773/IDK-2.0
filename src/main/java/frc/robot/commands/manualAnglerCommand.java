@@ -14,6 +14,8 @@ import frc.robot.subsystems.manualAnglerSubsystem;
 public class manualAnglerCommand extends CommandBase {
   // private final manualAnglerSubsystem manualAnglerSubsystem;
   private final ballAnglerSubsystem ballAnglerSubsystem;
+  private final manualAnglerSubsystem manualAnglerSubsystem;
+
   private final BooleanSupplier angleForward;
   private final BooleanSupplier angleForwardReleased;
   private final BooleanSupplier angleBackward;
@@ -21,17 +23,18 @@ public class manualAnglerCommand extends CommandBase {
 
 //manualAnglerSubsystem manualAnglerSubsystem
   /** Creates a new manualAnglerCommand. */
-  public manualAnglerCommand(ballAnglerSubsystem ballAnglerSubsystem, BooleanSupplier angleForward, BooleanSupplier angleBackward, BooleanSupplier angleForwardReleased, BooleanSupplier angleBackwardReleased) {
+  public manualAnglerCommand(manualAnglerSubsystem manualAnglerSubsystem, ballAnglerSubsystem ballAnglerSubsystem, BooleanSupplier angleForward, BooleanSupplier angleBackward, BooleanSupplier angleForwardReleased, BooleanSupplier angleBackwardReleased) {
     // this.manualAnglerSubsystem = manualAnglerSubsystem;
     this.angleForward = angleForward;
     this.angleBackward = angleBackward;
     this.ballAnglerSubsystem = ballAnglerSubsystem;
+    this.manualAnglerSubsystem = manualAnglerSubsystem;
     this.angleForwardReleased = angleForwardReleased;
     this.angleBackwardReleased = angleBackwardReleased;
     // Use addRequirements() here to declare subsystem dependencies.
     // addRequirements(this.manualAnglerSubsystem);
     addRequirements(this.ballAnglerSubsystem);
-
+    addRequirements(this.manualAnglerSubsystem);
   }
 
 //  public manualAnglerCommand(frc.robot.subsystems.manualAnglerSubsystem mAnglerSubsystem, Object speed2) {
@@ -46,14 +49,17 @@ public class manualAnglerCommand extends CommandBase {
       this.ballAnglerSubsystem.stopMotor();
     }
     if (this.angleForward.getAsBoolean()) {
-      this.ballAnglerSubsystem.angleForward();
+      this.ballAnglerSubsystem.setmotor(0.25);
+      // this.ballAnglerSubsystem.angleForward();
     }else{
     if(this.ballAnglerSubsystem.getLimitSwitch()){
       this.ballAnglerSubsystem.resetDistance();
+      System.out.print("0");
       this.ballAnglerSubsystem.stopMotor();
    }else{
     if(this.angleBackward.getAsBoolean()){
-      this.ballAnglerSubsystem.angleBackward();
+      this.ballAnglerSubsystem.setmotor(-0.25);
+      // this.ballAnglerSubsystem.angleBackward();
     }
    }
    /*    if (this.angleForward.getAsBoolean()) {
