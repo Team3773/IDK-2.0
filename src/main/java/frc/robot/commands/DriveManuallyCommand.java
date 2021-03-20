@@ -29,14 +29,18 @@ public class DriveManuallyCommand extends CommandBase {
   public void execute() {
 
     double tempMove = move.getAsDouble() * driveConstants.speedScaler;
-    double tempTurn = turn.getAsDouble() * driveConstants.speedScaler;
+    double tempTurn = turn.getAsDouble() * 0.85;
+    // double tempMove = move.getAsDouble() * driveConstants.speedScaler;
+    // double tempTurn = turn.getAsDouble() * driveConstants.speedScaler;
     
     if(reversed){
-      tempMove = -tempMove;
-      tempTurn = -tempTurn;
-    }
+      driveSubsystem.driveManually(-tempMove, -tempTurn);
+      // tempMove = -tempMove;
+      // tempTurn = -tempTurn;
+    }else{
 
     driveSubsystem.driveManually(tempMove, tempTurn);
+    }
   }
  
 }

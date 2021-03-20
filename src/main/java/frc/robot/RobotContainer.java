@@ -191,16 +191,19 @@ public class RobotContainer {
     .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
     button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(0.7), intakeSubsystem))
     .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
-    button3.whenPressed(new RunCommand( () -> anglerSubsystem.setmotor(-0.5), anglerSubsystem))
+    button3.whenPressed(new RunCommand( () -> anglerSubsystem.setmotor(-0.1), anglerSubsystem))
     .whenReleased(new RunCommand( () -> anglerSubsystem.setmotor(0), anglerSubsystem));
-    button5.whenPressed(new RunCommand( () -> anglerSubsystem.setmotor(0.5), anglerSubsystem))
+    button5.whenPressed(new RunCommand( () -> anglerSubsystem.setmotor(0.1), anglerSubsystem))
     .whenReleased(new RunCommand( () -> anglerSubsystem.setmotor(0), anglerSubsystem));
+      // button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 6.8));
+      // button8.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.8));
+      // button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.9));
+      button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 4.25));
+      button8.whenPressed(new ballAnglerCommand(anglerSubsystem, 5.5));
+      button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 6.0));
     // button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 6.8));
-    // button8.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.8));
-    // button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.9));
-    button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 6.8));
-    button8.whenPressed(new ballAnglerCommand(anglerSubsystem, 19.0));
-    button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 29.2));
+    // button8.whenPressed(new ballAnglerCommand(anglerSubsystem, 19.0));
+    // button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 29.2));
 
     button11.whenPressed(new TurnToAngle(driveSubsystem, 25).withTimeout(5));
     button12.whenPressed(new zeroAngler(anglerSubsystem));

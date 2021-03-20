@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class ballAnglerCommand extends CommandBase {
   private final ballAnglerSubsystem ballAnglerSubsystem;
   private final double setPoint;
-  private final double kP = 0.07;
+  private final double kP = 0.15;
 
   private double sensorPosition;
 
@@ -40,11 +40,11 @@ public class ballAnglerCommand extends CommandBase {
 
     ballAnglerSubsystem.setmotor(outputSpeed);
 
-    if(this.ballAnglerSubsystem.getLimitSwitch()){
-      this.ballAnglerSubsystem.resetDistance();
-      System.out.print("0");
-      this.ballAnglerSubsystem.stopMotor();
-    }
+    //  if(this.ballAnglerSubsystem.getLimitSwitch()){
+    //    this.ballAnglerSubsystem.resetDistance();
+    //    System.out.print("0");
+    //    this.ballAnglerSubsystem.setmotor(speed > 0);
+    //  }
 
   }
 
