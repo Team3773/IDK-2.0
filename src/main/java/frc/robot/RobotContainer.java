@@ -104,9 +104,11 @@ public class RobotContainer {
 
     // Configure default commands
     // going to try using lambdas here...
-
+//10
+//    driveSubsystem.setDefaultCommand(new DriveManuallyCommand(driveSubsystem, () -> stick.getY(), () -> stick.getX(),
+//stick.getRawButtonPressed(driveConstants.reverseButton)));
     driveSubsystem.setDefaultCommand(new DriveManuallyCommand(driveSubsystem, () -> stick.getY(), () -> stick.getX(),
-        stick.getRawButtonPressed(driveConstants.reverseButton)));
+        stick.getRawButtonPressed(10)));
     beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(6), () -> stick.getTriggerReleased(), () -> stick.getRawButton(1)));
     //anglerSubsystem.setDefaultCommand(new ballAnglerCommand(anglerSubsystem, stick.getThrottle()));
     //**//mAnglerSubsystem.setDefaultCommand(new manualAnglerCommand(mAnglerSubsystem, anglerSubsystem, () -> stick.getThrottle()));
@@ -162,11 +164,9 @@ public class RobotContainer {
     
 
     // bind left bumper to intake motor
-    button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(0.7), intakeSubsystem))
-         .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
 
-    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
-         .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
+
+
 
     if(stick.getRawButtonPressed(4)){
       System.out.println("Setting Inake Camera");
@@ -179,18 +179,20 @@ public class RobotContainer {
 
     // button11.whenPressed(new RunCommand(() -> anglerSubsystem.setmotor(1), anglerSubsystem));
 
-    button12.whenPressed(new zeroAngler(anglerSubsystem));
 
     // button1.whenReleased(new RunCommand(() -> beltSubsystem.beltOff(), beltSubsystem), beltSubsystem.setDefaultCommand(new ballBeltCommand(beltSubsystem, () -> stick.getRawButton(3), () -> stick.getRawButton(1))));
     // button1.whenPressed(new RunCommand(() -> beltSubsystem.beltForward(), beltSubsystem))
     //      .whenReleased(new RunCommand(() ->  beltSubsystem.beltOff(), beltSubsystem));
+    button1.whenPressed(new RunCommand(() -> outakeSubsystem.setmotor(1), outakeSubsystem))
+    .whenReleased(new RunCommand(() -> outakeSubsystem.setmotor(0), outakeSubsystem));
+    button2.whenPressed(new RunCommand(() -> intakeSubsystem.setmotor(0.7), intakeSubsystem))
+    .whenReleased(new RunCommand(() -> intakeSubsystem.setmotor(0), intakeSubsystem));
     button7.whenPressed(new ballAnglerCommand(anglerSubsystem, 6.8));
-    button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.8));
-    button11.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.9));
+    button8.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.8));
+    button9.whenPressed(new ballAnglerCommand(anglerSubsystem, 7.9));
+    button11.whenPressed(new TurnToAngle(driveSubsystem, 25).withTimeout(5));
+    button12.whenPressed(new zeroAngler(anglerSubsystem));
 
-
-
-    button7.whenPressed(new TurnToAngle(driveSubsystem, 25).withTimeout(5));
     // setpoint = 4.35833;
     // setpoint = 5.449541;
     // setpoint = 6.53945;

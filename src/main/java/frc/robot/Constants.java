@@ -53,7 +53,7 @@ public final class Constants {
         public static final boolean driveEncoderReversed = false;
         public static final double driveEncoderDistancePerPulse = 1.0 / 256.0;
         public static final double speedScaler = 1;
-        public static final int reverseButton = 1;
+        public static final int reverseButton = 10;
 
                 //kp The proportional coefficient.
                 public static final double kTurnP = 1;

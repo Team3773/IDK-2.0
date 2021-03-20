@@ -64,6 +64,7 @@ public class ballAnglerSubsystem extends SubsystemBase {
     ballAngler.set(0);
     //ahhhh
   }
+  
   public void angleForward() {
     ballAngler.set(0.5); 
   
